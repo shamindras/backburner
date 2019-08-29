@@ -13,7 +13,12 @@ LazyData: true
 URL: https://github.com/shamindras/backburner
 BugReports: https://github.com/shamindras/backburner/issues
 Suggests: 
-    testthat,
+    testthat (>= 2.1.0),
     spelling,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Language: en-US
+Imports: 
+    purrr
+VignetteBuilder: knitr
