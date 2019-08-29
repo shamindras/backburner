@@ -12,3 +12,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/shamindras/backburner
 BugReports: https://github.com/shamindras/backburner/issues
+Suggests: 
+    testthat,
+    spelling
+Language: en-US
