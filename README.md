@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/shamindras/backburner.svg?branch=master)](https://travis-ci.org/shamindras/backburner)
+[![Codecov test
+coverage](https://codecov.io/gh/shamindras/backburner/branch/master/graph/badge.svg)](https://codecov.io/gh/shamindras/backburner?branch=master)
 <!-- badges: end -->
 
 The goal of backburner is to …

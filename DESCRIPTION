@@ -14,5 +14,6 @@ URL: https://github.com/shamindras/backburner
 BugReports: https://github.com/shamindras/backburner/issues
 Suggests: 
     testthat,
-    spelling
+    spelling,
+    covr
 Language: en-US
