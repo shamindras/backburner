@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • backburner</title>
+<title>Transform the geomac file — get_transform_geomac • backburner</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Transform the geomac file — get_transform_geomac" />
+<meta property="og:description" content="Transform the geomac file" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,17 +120,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Transform the geomac file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/geomac-transform.R'><code>R/geomac-transform.R</code></a></small>
+    <div class="hidden name"><code>get_transform_geomac.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="setup-backburner.html">Setting up the backburner Package</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>Transform the geomac file</p>
     </div>
+
+    <pre class="usage"><span class='fu'>get_transform_geomac</span>(<span class='no'>fpath</span>, <span class='no'>exp_orig_colnames</span>, <span class='no'>new_colnames</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>fpath</th>
+      <td><p>(character) : The path to the shapefile we want to transform</p></td>
+    </tr>
+    <tr>
+      <th>new_colnames</th>
+      <td><p>(character) : New list of colnames we want to set for
+our transformed output shapefile. If <code>NULL</code> the column names will get
+converted to lower case and spaces replaced by underscores via the
+<code>janitor</code> package</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>(sf object) : transformed shapefile</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+    </ul>
+
   </div>
 </div>
 

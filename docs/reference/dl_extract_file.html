@@ -6,7 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • backburner</title>
+<title>Download file from specified url into specified path. If the directory
+of the destination path is not specified then the function will create the
+directory. Also gives the user the option to extract the contents of the
+downloaded file — dl_extract_file • backburner</title>
 
 
 <!-- jquery -->
@@ -35,7 +38,15 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Download file from specified url into specified path. If the directory
+of the destination path is not specified then the function will create the
+directory. Also gives the user the option to extract the contents of the
+downloaded file — dl_extract_file" />
+<meta property="og:description" content="Download file from specified url into specified path. If the directory
+of the destination path is not specified then the function will create the
+directory. Also gives the user the option to extract the contents of the
+downloaded file" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +65,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,17 +129,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Download file from specified url into specified path. If the directory
+of the destination path is not specified then the function will create the
+directory. Also gives the user the option to extract the contents of the
+downloaded file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/etl-utils.R'><code>R/etl-utils.R</code></a></small>
+    <div class="hidden name"><code>dl_extract_file.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="setup-backburner.html">Setting up the backburner Package</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>Download file from specified url into specified path. If the directory
+of the destination path is not specified then the function will create the
+directory. Also gives the user the option to extract the contents of the
+downloaded file</p>
     </div>
+
+    <pre class="usage"><span class='fu'>dl_extract_file</span>(<span class='no'>furl</span>, <span class='no'>outpath</span>, <span class='no'>outdir</span>, <span class='kw'>extr</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>furl</th>
+      <td><p>(character) : URL for the required file download</p></td>
+    </tr>
+    <tr>
+      <th>outpath</th>
+      <td><p>(character) : Full destination path for the specified
+file download</p></td>
+    </tr>
+    <tr>
+      <th>extr</th>
+      <td><p>(logical) : TRUE (default) to extract contents of download else
+specify FALSE</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>(logical) : FALSE (default) to remove the .zip file once it is
+extracted.</p></td>
+    </tr>
+    </table>
+
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+    </ul>
+
   </div>
 </div>
 

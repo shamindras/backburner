@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • backburner</title>
+<title>Format GEOMAC shapefiles given path — geomac_format_shapefiles • backburner</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Format GEOMAC shapefiles given path — geomac_format_shapefiles" />
+<meta property="og:description" content="Format GEOMAC shapefiles given path" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,17 +120,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Format GEOMAC shapefiles given path</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/geomac-transform.R'><code>R/geomac-transform.R</code></a></small>
+    <div class="hidden name"><code>geomac_format_shapefiles.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="setup-backburner.html">Setting up the backburner Package</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>Format GEOMAC shapefiles given path</p>
     </div>
+
+    <pre class="usage"><span class='fu'>geomac_format_shapefiles</span>(<span class='no'>shapefiles_path</span>, <span class='no'>geomac_type</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>shapefiles_path</th>
+      <td><p>(character) : Path of the shapefile to be transformed</p></td>
+    </tr>
+    <tr>
+      <th>geomac_type</th>
+      <td><p>: Can be either `geomac_fire_perimeters` or
+`geomac_situation_report`. Different types filter
+on different columns for the creation of the shapefile</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A shapefile object</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+    </ul>
+
   </div>
 </div>
 

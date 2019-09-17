@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • backburner</title>
+<title>Get data dictionary names from single Excel sheet — get_ddict • backburner</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Get data dictionary names from single Excel sheet — get_ddict" />
+<meta property="og:description" content="Get data dictionary names from single Excel sheet" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +56,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,17 +120,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Get data dictionary names from single Excel sheet</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/etl-utils.R'><code>R/etl-utils.R</code></a></small>
+    <div class="hidden name"><code>get_ddict.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="setup-backburner.html">Setting up the backburner Package</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>Get data dictionary names from single Excel sheet</p>
     </div>
+
+    <pre class="usage"><span class='fu'>get_ddict</span>(<span class='no'>ddict_xlsx_path</span>, <span class='no'>sheet_nm</span>, <span class='no'>cols_rng</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ddict_xlsx_path</th>
+      <td><p>: .xlsx file path</p></td>
+    </tr>
+    <tr>
+      <th>sheet_nm</th>
+      <td><p>: sheet number</p></td>
+    </tr>
+    <tr>
+      <th>cols_rng</th>
+      <td><p>: column range in the sheet to be selected</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>tibble with data dictionary names</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+    </ul>
+
   </div>
 </div>
 

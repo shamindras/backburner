@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • backburner</title>
+<title>Setup the column names for MTBS.
+There are two sets of names because there are two dataframes being returned.
+These have to match the data dictionary names — mtbs_transform_col_names • backburner</title>
 
 
 <!-- jquery -->
@@ -35,7 +37,13 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Setup the column names for MTBS.
+There are two sets of names because there are two dataframes being returned.
+These have to match the data dictionary names — mtbs_transform_col_names" />
+<meta property="og:description" content="Setup the column names for MTBS.
+There are two sets of names because there are two dataframes being returned.
+These have to match the data dictionary names" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +62,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,17 +126,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Setup the column names for MTBS.
+There are two sets of names because there are two dataframes being returned.
+These have to match the data dictionary names</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/mtbs-transform.R'><code>R/mtbs-transform.R</code></a></small>
+    <div class="hidden name"><code>mtbs_transform_col_names.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="setup-backburner.html">Setting up the backburner Package</a></li>
-      </ul>
+    <div class="ref-description">
+    <p>Setup the column names for MTBS.
+There are two sets of names because there are two dataframes being returned.
+These have to match the data dictionary names</p>
     </div>
+
+    <pre class="usage"><span class='fu'>mtbs_transform_col_names</span>(<span class='no'>mtbs_type</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mtbs_type</th>
+      <td><p>(character) : This specifies the type of MTBS data we want
+to import and takes 2 values <code>mtbs_perimeter_data, mtbs_fod_pts_data</code></p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>(list): two character vectors, one with the original column names
+                and the other one with the transformed column names</p>
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+    </ul>
+
   </div>
 </div>
 
