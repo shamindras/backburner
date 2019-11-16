@@ -20,6 +20,7 @@ Suggests:
     rmarkdown
 Language: en-US
 Imports: 
-    purrr
+    purrr,
+    magrittr
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 6.1.1.9000

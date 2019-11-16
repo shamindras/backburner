@@ -216,6 +216,41 @@ geomac_format_shapefiles <- function(shapefiles_path, geomac_type){
 }
 
 
+#' Determine Sheet Prefix for Firepred Data Dictionary
+#'
+#' Before 11/7/2019, both fire perimeters and incident reports displayed
+#' two sets of variable, depending on whether the data were recorded before
+#' or after 2015.
+#' As of 11/7/2019, fire perimeters have been updated so that the variable
+#' names are consistent across years now. However, incident reports still
+#' presents two different variable names depending on whether the year
+#' was before or after 2015.
+#' This function looks at which sets of variable names to look at based on
+#' whether it's a perimeter or incident report file, which year the file is
+#' and whether we are dealing with data before 11//7/2019 changes.
+#' @param ind_perims (logical): Boolean indicator. If TRUE, the file is a perimeter file,
+#'                              otherwise it is an incident report.
+#' @param yrs (numeric): Vector with years which data need to be transformed
+#' @param pre_pst_split_ind (logical): Boolean indicator. If TRUE, then variable names for perimeters
+#'                                     change before and after 2015 (as before 11/7/2019 changes),
+#'                                     so that the `*_pre15` sheets are used in the Firepred
+#'                                     data dictionary for before 2015 and the `*_pst15' for the
+#'                                     years afterwards. If FALSE (default since 11/7/2019 changes),
+#'                                     the `*_pst15' sheets are used across the years for perimeters.
+#' @return A vector of `pre15` or `pst15` according to which Data Dictionary sheet should be considered.
+#' @export
+derive_year_sheet_ind <- function(ind_perims, year, pre_pst_split_ind){
+    ind_var <- base::ifelse(ind_perims & !pre_pst_split_ind, TRUE, FALSE)
+    out <- base::ifelse(ind_var,
+                        'pst15',
+                        dplyr::case_when(
+                            year >=2007 & year <= 2015 ~ "pre15",
+                            year > 2015 ~ "pst15"))
+    return(out)
+}
+
+
+
 #' Full Pipeline for Transforming GEOMAC Shapefiles
 #'
 #' This function will transform both geomac files, i.e.
@@ -225,10 +260,16 @@ geomac_format_shapefiles <- function(shapefiles_path, geomac_type){
 #'                         going to look for a folder in the `data/{ds_source}/` named
 #'                         as this date
 #' @param yrs (numeric): Vector with years which data need to be transformed
+#' @param pre_pst_split_ind (logical): Boolean indicator. If TRUE, then variable names for perimeters
+#'                                     change before and after 2015 (as before 11/7/2019 changes),
+#'                                     so that the `*_pre15` sheets are used in the Firepred
+#'                                     data dictionary for before 2015 and the `*_pst15' for the
+#'                                     years afterwards. If FALSE (default since 11/7/2019 changes),
+#'                                     the `*_pst15' sheets are used across the years for perimeters.
 #' @return A list with two shapefiles for loading, in which the key is the
 #'         mtbs_type
 #' @export
-geomac_transform <- function(dl_date, yrs, ds_source = "geomac"){
+geomac_transform <- function(dl_date, yrs, ds_source = "geomac", pre_pst_split_ind=FALSE){
 
     GEOMAC_DDICT_XLSX_PATH <- here::here("data", "Fire-Prediction-Data-Dictionary.xlsx")
     GEOMAC_DDICT_COLS_RNG <- "A:E"
@@ -246,9 +287,21 @@ geomac_transform <- function(dl_date, yrs, ds_source = "geomac"){
                           dplyr::if_else(ind_perims,
                                          "perims",
                                          "sitreps"),
-                      pre_pst_type = dplyr::case_when(
-                          year >=2007 & year <= 2015 ~ "pre15",
-                          year > 2015 ~ "pst15"),
+                      pre_pst_type = derive_year_sheet_ind(
+                          ind_perims, year, pre_pst_split_ind),
+#                           base::ifelse(ind_perims,
+#                           base::ifelse(pre_pst_split_ind,
+#                                             dplyr::case_when(
+#                                               year >=2007 & year <= 2015 ~ "pre15",
+#                                               year > 2015 ~ "pst15"),
+#                                             'pst15'),
+#                           base::ifelse(pre_pst_split_ind,
+#                                         dplyr::case_when(
+#                                             year >=2007 & year <= 2015 ~ "pre15",
+#                                             year > 2015 ~ "pst15"),
+#                                         dplyr::case_when(
+#                                             year >=2007 & year <= 2015 ~ "pre15",
+#                                             year > 2015 ~ "pst15"))),
                       ddict_type =
                           stringr::str_c("dim_geomac",
                                          geomac_type,

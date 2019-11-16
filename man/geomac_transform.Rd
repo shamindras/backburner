@@ -4,7 +4,8 @@
 \alias{geomac_transform}
 \title{Full Pipeline for Transforming GEOMAC Shapefiles}
 \usage{
-geomac_transform(dl_date, yrs, ds_source = "geomac")
+geomac_transform(dl_date, yrs, ds_source = "geomac",
+  pre_pst_split_ind = FALSE)
 }
 \arguments{
 \item{dl_date}{(date) : Date in which the file were downloaded. This is
@@ -14,6 +15,13 @@ as this date}
 \item{yrs}{(numeric): Vector with years which data need to be transformed}
 
 \item{ds_source}{(character) : data names. Default to "geomac"}
+
+\item{pre_pst_split_ind}{(logical): Boolean indicator. If TRUE, then variable names for perimeters
+change before and after 2015 (as before 11/7/2019 changes),
+so that the `*_pre15` sheets are used in the Firepred
+data dictionary for before 2015 and the `*_pst15' for the
+years afterwards. If FALSE (default since 11/7/2019 changes),
+the `*_pst15' sheets are used across the years for perimeters.}
 }
 \value{
 A list with two shapefiles for loading, in which the key is the
