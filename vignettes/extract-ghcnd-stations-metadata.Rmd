@@ -1,0 +1,27 @@
+---
+title: "How to Extract NOAA GHCND stations metadata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to Extract NOAA GHCND stations metadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+We can easily get nicely transformed [NOAA Global Historical Climatology Network Daily (GHCN-D) station metadata](https://docs.opendata.aws/noaa-ghcn-pds/readme.html). This is 
+particularly useful for US/Canada related weather data.
+
+We can do this by simply running the following code:
+```{r setup, eval=FALSE}
+library(backburner)
+ghcnd_stations <- backburner::get_transform_ghcnd_stations()
+```
+
+You can then use the `ghcnd_stations` tibble as required to get geospatial
+metadata on the `GHCN-D` climate features.

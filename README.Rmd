@@ -19,43 +19,17 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/shamindras/backburner/branch/master/graph/badge.svg)](https://codecov.io/gh/shamindras/backburner?branch=master)
 <!-- badges: end -->
 
-The goal of backburner is to ...
+The `backburner` package is a collection of utilities for to enable efficient
+extract and transformation of open US Wildfire data and relevant climate 
+features. For more details, please see the [official package documentation](https://shamindras.github.io/backburner/index.html)
+
 
 ## Installation
 
-You can install the released version of backburner from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("backburner")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of backburner from 
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("shamindras/backburner")
 ```
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example, eval=FALSE}
-library(backburner)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
