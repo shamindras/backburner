@@ -1,13 +1,13 @@
 #' This is a simply wrapper function to extract \code{noaa ghcn}
-#' station, states, and stations metadata as individual tibbles.
+#' station, states, and countries metadata as individual tibbles.
 #' This uses the \code{rnoaa} package directly to do this.
 #'
 #' @return This will be list with 3 separate tibbles named
 #' \code{ghcnd_stations, ghcnd_states, ghcnd_countries}
 #'
-#' #' @examples
+#' @examples
 #' \dontrun{
-#' ghcnd_stations_metadata <- noaa_ghcn_stations_extract()
+#' ghcnd_stations_metadata <- backburner::noaa_ghcn_stations_extract()
 #' }
 #'
 #' @export
