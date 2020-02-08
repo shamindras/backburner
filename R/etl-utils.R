@@ -81,7 +81,7 @@ setup_global_variables <- function(dat_flag, data_dl_method = 'libcurl',
 
     #Other general global variables
     dl_datetime <<- base::Sys.time()
-    dl_date <<- base::as.Date(dl_datetime)
+    dl_date <<- base::Sys.Date()
     dl_user <<- base::Sys.info()["user"]
     dl_sysname <<- base::Sys.info()["sysname"]
 }
@@ -104,4 +104,52 @@ get_ddict <- function(ddict_xlsx_path, sheet_nm, cols_rng){
     ddict <- ddict %>%
         dplyr::filter_all(any_vars(!is.na(.))) %>%
         dplyr::select(orig_varname, new_varname)
+}
+
+#' Gets the intersection or union of columns in a list of dataframes
+#' This is used in the \code{geomac} and \code{mtbs} load code
+#'
+#' @param inp_df_list (list) : A list of data frames which may have some columns
+#' in common
+#' @param set_group_fn (function) : Typically \code{intersect} or \code{union}.
+#' Will determine if we get the common intersection or union of all column
+#' names across all the data frames in the list
+#'
+#' @export
+get_common_cols <- function(inp_df_list, set_group_fn){
+    out_df <- inp_df_list %>%
+        purrr::map(.x = ., .f = ~base::colnames(x = .x)) %>%
+        purrr::reduce(.x = ., .f = set_group_fn)
+    base::return(out_df)
+}
+
+#' Selects the specified columns from the input data frame
+#' This is used in the \code{geomac} and \code{mtbs} load code
+#'
+#' @param inp_df (data.frame) : The input data frame
+#' @param sel_cols (character) : A character of column names we want to
+#' \code{select} from the data frame
+#'
+#' @export
+get_sel_cols <- function(inp_df, sel_cols){
+    out_df <- inp_df %>%
+        dplyr::select(sel_cols)
+    base::return(out_df)
+}
+
+#' Selects the specified columns from a list of input data frames.
+#' This is used in the \code{geomac} and \code{mtbs} load code
+#'
+#' @param inp_df_list (list) : A list of data frames which may have some columns
+#' in common
+#' @param sel_cols (character) : A character of column names we want to
+#' \code{select} from the data frame
+#'
+#' @export
+get_subset_cols <- function(inp_df_list, sel_cols){
+    out_df_list <- inp_df_list %>%
+        purrr::map(.x = .,
+                   .f = ~get_sel_cols(inp_df = .x,
+                                      sel_cols = sel_cols))
+    base::return(out_df_list)
 }
