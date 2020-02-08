@@ -90,6 +90,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/extract-ghcnd-stations-metadata.html">How to Extract NOAA GHCND stations metadata</a>
+    </li>
+    <li>
       <a href="../articles/setup-backburner.html">Setting up the backburner Package</a>
     </li>
   </ul>
@@ -137,6 +140,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="derive_year_sheet_ind.html">derive_year_sheet_ind()</a></code> </p>
+        </td>
+        <td><p>Determine Sheet Prefix for Firepred Data Dictionary</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="dl_extract_file.html">dl_extract_file()</a></code> </p>
@@ -302,6 +311,14 @@ data dictionary file.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="get_transform_ghcnd_stations.html">get_transform_ghcnd_stations()</a></code> </p>
+        </td>
+        <td><p>Transformed GHCN-Daily Stations file. This is metadata for the GHCN-daily
+file. It contains additional info on US/Canada states and country
+information for each station</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_transform_mtbs.html">get_transform_mtbs()</a></code> </p>
         </td>
         <td><p>Transform the MTBS file</p></td>
@@ -386,6 +403,14 @@ These have to match the data dictionary names</p></td>
         <td><p>Wrapper for NOOA GCHN data extraction pipeline.
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="noaa_ghcn_stations_extract.html">noaa_ghcn_stations_extract()</a></code> </p>
+        </td>
+        <td><p>This is a simply wrapper function to extract <code>noaa ghcn</code>
+station, states, and countries metadata as individual tibbles.
+This uses the <code>rnoaa</code> package directly to do this.</p></td>
       </tr><tr>
         
         <td>
@@ -476,7 +501,7 @@ data and metadata and download the data.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Shamindra Shrotriya.</p>
+  <p>Developed by Shamindra Shrotriya, Niccolo Dalmasso, Alex Reinhart.</p>
 </div>
 
 <div class="pkgdown">

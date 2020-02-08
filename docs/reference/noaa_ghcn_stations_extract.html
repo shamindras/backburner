@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extracting information on the download URLs for NOOA STORMEVENTS CSV data — noaa_stormevents_read_data • backburner</title>
+<title>This is a simply wrapper function to extract <code>noaa ghcn</code>
+station, states, and countries metadata as individual tibbles.
+This uses the <code>rnoaa</code> package directly to do this. — noaa_ghcn_stations_extract • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +37,12 @@
 
 
 
-<meta property="og:title" content="Extracting information on the download URLs for NOOA STORMEVENTS CSV data — noaa_stormevents_read_data" />
-<meta property="og:description" content="Extracting information on the download URLs for NOOA STORMEVENTS CSV data" />
+<meta property="og:title" content="This is a simply wrapper function to extract <code>noaa ghcn</code>
+station, states, and countries metadata as individual tibbles.
+This uses the <code>rnoaa</code> package directly to do this. — noaa_ghcn_stations_extract" />
+<meta property="og:description" content="This is a simply wrapper function to extract noaa ghcn
+station, states, and countries metadata as individual tibbles.
+This uses the rnoaa package directly to do this." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,23 +129,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extracting information on the download URLs for NOOA STORMEVENTS CSV data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/storms-noaa-extract.R'><code>R/storms-noaa-extract.R</code></a></small>
-    <div class="hidden name"><code>noaa_stormevents_read_data.Rd</code></div>
+    <h1>This is a simply wrapper function to extract <code>noaa ghcn</code>
+station, states, and countries metadata as individual tibbles.
+This uses the <code>rnoaa</code> package directly to do this.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/ghcn-stations-extract.R'><code>R/ghcn-stations-extract.R</code></a></small>
+    <div class="hidden name"><code>noaa_ghcn_stations_extract.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extracting information on the download URLs for NOOA STORMEVENTS CSV data</p>
+    <p>This is a simply wrapper function to extract <code>noaa ghcn</code>
+station, states, and countries metadata as individual tibbles.
+This uses the <code>rnoaa</code> package directly to do this.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>noaa_stormevents_read_data</span>()</pre>
+    <pre class="usage"><span class='fu'>noaa_ghcn_stations_extract</span>()</pre>
 
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>This will be list with 3 separate tibbles named
+<code>ghcnd_stations, ghcnd_states, ghcnd_countries</code></p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>ghcnd_stations_metadata</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>backburner</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/backburner/man/noaa_ghcn_stations_extract.html'>noaa_ghcn_stations_extract</a></span>()
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

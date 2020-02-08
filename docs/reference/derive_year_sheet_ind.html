@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extracting information on the download URLs for NOOA STORMEVENTS CSV data — noaa_stormevents_read_data • backburner</title>
+<title>Determine Sheet Prefix for Firepred Data Dictionary — derive_year_sheet_ind • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,17 @@
 
 
 
-<meta property="og:title" content="Extracting information on the download URLs for NOOA STORMEVENTS CSV data — noaa_stormevents_read_data" />
-<meta property="og:description" content="Extracting information on the download URLs for NOOA STORMEVENTS CSV data" />
+<meta property="og:title" content="Determine Sheet Prefix for Firepred Data Dictionary — derive_year_sheet_ind" />
+<meta property="og:description" content="Before 11/7/2019, both fire perimeters and incident reports displayed
+two sets of variable, depending on whether the data were recorded before
+or after 2015.
+As of 11/7/2019, fire perimeters have been updated so that the variable
+names are consistent across years now. However, incident reports still
+presents two different variable names depending on whether the year
+was before or after 2015.
+This function looks at which sets of variable names to look at based on
+whether it's a perimeter or incident report file, which year the file is
+and whether we are dealing with data before 11//7/2019 changes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,23 +132,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extracting information on the download URLs for NOOA STORMEVENTS CSV data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/storms-noaa-extract.R'><code>R/storms-noaa-extract.R</code></a></small>
-    <div class="hidden name"><code>noaa_stormevents_read_data.Rd</code></div>
+    <h1>Determine Sheet Prefix for Firepred Data Dictionary</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/geomac-transform.R'><code>R/geomac-transform.R</code></a></small>
+    <div class="hidden name"><code>derive_year_sheet_ind.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extracting information on the download URLs for NOOA STORMEVENTS CSV data</p>
+    <p>Before 11/7/2019, both fire perimeters and incident reports displayed
+two sets of variable, depending on whether the data were recorded before
+or after 2015.
+As of 11/7/2019, fire perimeters have been updated so that the variable
+names are consistent across years now. However, incident reports still
+presents two different variable names depending on whether the year
+was before or after 2015.
+This function looks at which sets of variable names to look at based on
+whether it's a perimeter or incident report file, which year the file is
+and whether we are dealing with data before 11//7/2019 changes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>noaa_stormevents_read_data</span>()</pre>
+    <pre class="usage"><span class='fu'>derive_year_sheet_ind</span>(<span class='no'>ind_perims</span>, <span class='no'>year</span>, <span class='no'>pre_pst_split_ind</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ind_perims</th>
+      <td><p>(logical): Boolean indicator. If TRUE, the file is a perimeter file,
+otherwise it is an incident report.</p></td>
+    </tr>
+    <tr>
+      <th>pre_pst_split_ind</th>
+      <td><p>(logical): Boolean indicator. If TRUE, then variable names for perimeters
+change before and after 2015 (as before 11/7/2019 changes),
+so that the `*_pre15` sheets are used in the Firepred
+data dictionary for before 2015 and the `*_pst15' for the
+years afterwards. If FALSE (default since 11/7/2019 changes),
+the `*_pst15' sheets are used across the years for perimeters.</p></td>
+    </tr>
+    <tr>
+      <th>yrs</th>
+      <td><p>(numeric): Vector with years which data need to be transformed</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A vector of `pre15` or `pst15` according to which Data Dictionary sheet should be considered.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>
