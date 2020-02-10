@@ -223,7 +223,7 @@ noaa_stormevents_transform <- function(dl_date, yrs, ds_source = "noaa_stormeven
 #' and R's strptime can't accept vectorized input with one time zone per element
 #' (instead of one fixed time zone). So we have to manually loop.
 noaa_stormevents_parse_datetime <- function(datetimes, tzs, format) {
-    assert_that(length(datetimes) == length(tzs))
+    assertthat::assert_that(length(datetimes) == length(tzs))
 
     # .POSIXct takes the bare list of doubles from unlist and marks its class as POSIXct
     .POSIXct(unlist(purrr::map(seq_along(datetimes),
@@ -233,12 +233,12 @@ noaa_stormevents_parse_datetime <- function(datetimes, tzs, format) {
 }
 
 noaa_stormevents_pointify <- function(lats, lons) {
-    assert_that(length(lats) == length(lons))
+    assertthat::assert_that(length(lats) == length(lons))
 
-    st_sfc(purrr::map(seq_along(lats),
-                      function(ii) {
-                          st_point(c(lons[ii], lats[ii]))
-                      }))
+    sf::st_sfc(purrr::map(seq_along(lats),
+                          function(ii) {
+                              sf::st_point(c(lons[ii], lats[ii]))
+                          }))
 }
 
 noaa_stormevents_details_transform <- function(details) {
@@ -252,12 +252,12 @@ noaa_stormevents_details_transform <- function(details) {
         select(-begin_ym, -begin_day, -begin_time, -end_ym, -end_day, -end_time,
                -beg_dtt, -end_dtt, -year, -name_mth, -begin_lat, -begin_lon,
                -end_lat, -end_lon) %>%
-        st_sf()
+        sf::st_sf()
 
     # The data documentation does not specify the coordinate reference system, but
     # it is latitude/longitude, so we assume they're using WGS84 like sensible
     # people.
-    st_crs(details) <- 4326
+    st::st_crs(details) <- 4326
 
     return(details)
 }

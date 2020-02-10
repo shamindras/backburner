@@ -102,7 +102,7 @@ get_ddict <- function(ddict_xlsx_path, sheet_nm, cols_rng){
                                 range = readxl::cell_cols(cols_rng))
     # Remove complete NA rows
     ddict <- ddict %>%
-        dplyr::filter_all(any_vars(!is.na(.))) %>%
+        dplyr::filter_all(dplyr::any_vars(!is.na(.))) %>%
         dplyr::select(orig_varname, new_varname)
 }
 
