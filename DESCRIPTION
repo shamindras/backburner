@@ -31,7 +31,7 @@ Imports:
     purrr,
     magrittr,
     rnoaa,
-    janitor
+    janitor,
     assertthat,
     sf,
     stringr,
