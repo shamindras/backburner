@@ -245,19 +245,19 @@ noaa_stormevents_details_transform <- function(details) {
     date_format <- "%d-%b-%y %H:%M:%S"
 
     details <- details %>%
-        mutate(begin_date = noaa_stormevents_parse_datetime(beg_dtt, cz_tzone, date_format),
-               end_date = noaa_stormevents_parse_datetime(end_dtt, cz_tzone, date_format),
-               begin_loc = noaa_stormevents_pointify(begin_lat, begin_lon),
-               end_loc = noaa_stormevents_pointify(end_lat, end_lon)) %>%
-        select(-begin_ym, -begin_day, -begin_time, -end_ym, -end_day, -end_time,
-               -beg_dtt, -end_dtt, -year, -name_mth, -begin_lat, -begin_lon,
-               -end_lat, -end_lon) %>%
+        dplyr::mutate(begin_date = noaa_stormevents_parse_datetime(beg_dtt, cz_tzone, date_format),
+                      end_date = noaa_stormevents_parse_datetime(end_dtt, cz_tzone, date_format),
+                      begin_loc = noaa_stormevents_pointify(begin_lat, begin_lon),
+                      end_loc = noaa_stormevents_pointify(end_lat, end_lon)) %>%
+        dplyr::select(-begin_ym, -begin_day, -begin_time, -end_ym, -end_day, -end_time,
+                      -beg_dtt, -end_dtt, -year, -name_mth, -begin_lat, -begin_lon,
+                      -end_lat, -end_lon) %>%
         sf::st_sf()
 
     # The data documentation does not specify the coordinate reference system, but
     # it is latitude/longitude, so we assume they're using WGS84 like sensible
     # people.
-    st::st_crs(details) <- 4326
+    sf::st_crs(details) <- 4326
 
     return(details)
 }
@@ -268,6 +268,6 @@ noaa_stormevents_fatality_date <- function(timestamp) {
 
 noaa_stormevents_fatalities_transform <- function(fatalities) {
     fatalities <- fatalities %>%
-        mutate(fatality_date = noaa_stormevents_fatality_date(fatality_dtt)) %>%
-        select(-year_month, -evnt_ym, -fatality_day, -fatality_time, -fatality_dtt)
+        dplyr::mutate(fatality_date = noaa_stormevents_fatality_date(fatality_dtt)) %>%
+        dplyr::select(-year_month, -evnt_ym, -fatality_day, -fatality_time, -fatality_dtt)
 }
