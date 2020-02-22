@@ -4,8 +4,12 @@
 \alias{noaa_ghcn_data_download}
 \title{Download data for NOOA GHCN data}
 \usage{
-noaa_ghcn_data_download(noaa_all, year_periods = 1800:1800,
-  data_folder = "data", remove = FALSE)
+noaa_ghcn_data_download(
+  noaa_all,
+  year_periods = 1800:1800,
+  data_folder = "data",
+  remove = FALSE
+)
 }
 \arguments{
 \item{noaa_all}{(tibble) : Data and Metadata info}

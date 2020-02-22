@@ -4,9 +4,12 @@
 \alias{nooa_ghcn_setup_variables}
 \title{Setup the global variables for NOOA GHCN data}
 \usage{
-nooa_ghcn_setup_variables(dat_flag = "noaa_ghcn_daily",
-  data_dl_method = "libcurl", metadata_dirname = "metadata",
-  url = NULL)
+nooa_ghcn_setup_variables(
+  dat_flag = "noaa_ghcn_daily",
+  data_dl_method = "libcurl",
+  metadata_dirname = "metadata",
+  url = NULL
+)
 }
 \arguments{
 \item{dat_flag}{(character) : "noaa_ghcn_daily" (default) name of the data -

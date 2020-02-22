@@ -5,8 +5,13 @@
 \title{Set Shapefile column names given dictionary names fetched from .xlsx
 data dictionary file.}
 \usage{
-get_noaa_stormevents_new_cnames(fpath, year, noaa_type, ddict_xlsx_path,
-  cols_rng)
+get_noaa_stormevents_new_cnames(
+  fpath,
+  year,
+  noaa_type,
+  ddict_xlsx_path,
+  cols_rng
+)
 }
 \arguments{
 \item{fpath}{: shapefile path}

@@ -6,9 +6,14 @@
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.}
 \usage{
-mtbs_extract(dat_flag = "mtbs", data_dl_method = "libcurl",
-  url = NULL, remove = FALSE, data_folder = "data",
-  metadata_dirname = "metadata")
+mtbs_extract(
+  dat_flag = "mtbs",
+  data_dl_method = "libcurl",
+  url = NULL,
+  remove = FALSE,
+  data_folder = "data",
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{dat_flag}{(character) : "mtbs" (default) name of the data -

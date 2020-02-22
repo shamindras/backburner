@@ -5,8 +5,7 @@
 \title{Provides a helper dataframe to list all of the files extracted for NOAA STORMEVENTS
 for a specified year of download}
 \usage{
-get_noaa_stormevents_mtda_paths(dl_date, yr,
-  ds_source = "noaa_stormevents")
+get_noaa_stormevents_mtda_paths(dl_date, yr, ds_source = "noaa_stormevents")
 }
 \arguments{
 \item{dl_date}{(date) : Date in which the file were downloaded. This is

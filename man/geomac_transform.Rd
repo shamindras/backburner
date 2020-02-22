@@ -4,8 +4,7 @@
 \alias{geomac_transform}
 \title{Full Pipeline for Transforming GEOMAC Shapefiles}
 \usage{
-geomac_transform(dl_date, yrs, ds_source = "geomac",
-  pre_pst_split_ind = FALSE)
+geomac_transform(dl_date, yrs, ds_source = "geomac", pre_pst_split_ind = FALSE)
 }
 \arguments{
 \item{dl_date}{(date) : Date in which the file were downloaded. This is

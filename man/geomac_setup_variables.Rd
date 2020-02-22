@@ -4,8 +4,12 @@
 \alias{geomac_setup_variables}
 \title{Setup the global variables for GEOMAC data}
 \usage{
-geomac_setup_variables(dat_flag = "geomac", data_dl_method = "libcurl",
-  metadata_dirname = "metadata", url = NULL)
+geomac_setup_variables(
+  dat_flag = "geomac",
+  data_dl_method = "libcurl",
+  metadata_dirname = "metadata",
+  url = NULL
+)
 }
 \arguments{
 \item{dat_flag}{(character) : "geomac" (default) name of the data - will
