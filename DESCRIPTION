@@ -3,17 +3,17 @@ Title: A package to extract US Wildfire data and relevant climate features
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Shamindra",
-           family = "Shrotriya",
-           role = c("aut", "cre"),
-           email = "shamindra.shrotriya@gmail.com"),
-      person(given = "Niccolo",
-           family = "Dalmasso",
-           role = c("aut"),
-           email = "ndalmass@andrew.cmu.edu"),
+             family = "Shrotriya",
+             role = c("aut", "cre"),
+             email = "shamindra.shrotriya@gmail.com"),
+      person(given = "Niccolò",
+             family = "Dalmasso",
+             role = "aut",
+             email = "ndalmass@stat.cmu.edu"),
       person(given = "Alex",
-           family = "Reinhart",
-           role = c("aut"),
-           email = "areinhar@andrew.cmu.edu"))
+             family = "Reinhart",
+             role = "aut",
+             email = "areinhar@stat.cmu.edu"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -31,6 +31,11 @@ Imports:
     purrr,
     magrittr,
     rnoaa,
-    janitor
+    janitor,
+    assertthat,
+    sf,
+    stringr,
+    dplyr,
+    vroom
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1.9000
+RoxygenNote: 7.0.2

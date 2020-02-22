@@ -49,14 +49,14 @@ get_geomac_mtda_paths <- function(ds_source, dl_date, yr){
                       ind_sqlite =
                           ind_re_match(string = fextn,
                                        pattern = "sqlite$"),
-                      ind_perims = str_detect(string = fname,
-                                              pattern =
-                                                  stringr::fixed('perim',
-                                                                 ignore_case = TRUE)),
-                      ind_sit_reps = str_detect(string = fname,
-                                                pattern =
-                                                    stringr::fixed('sit_rep',
-                                                                   ignore_case = TRUE)),
+                      ind_perims = stringr::str_detect(string = fname,
+                                                       pattern =
+                                                           stringr::fixed('perim',
+                                                                          ignore_case = TRUE)),
+                      ind_sit_reps = stringr::str_detect(string = fname,
+                                                         pattern =
+                                                             stringr::fixed('sit_rep',
+                                                                            ignore_case = TRUE)),
                       year = yr)
 
     base::return(outdir_mtda_yr_files)

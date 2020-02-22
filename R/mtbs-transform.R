@@ -161,7 +161,7 @@ get_transform_mtbs <- function(fpath, exp_orig_colnames, new_colnames){
 
     # Check if the colnames that we read in from the required dataframe
     # match those that we expect from our global variables list
-    assert_that(all(readin_colnames == exp_orig_colnames))
+    assertthat::assert_that(all(readin_colnames == exp_orig_colnames))
 
     # Set the colnames manually or automatically convert them to lower case
     if(!is.null(new_colnames)){

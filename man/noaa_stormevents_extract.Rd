@@ -6,10 +6,15 @@
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.}
 \usage{
-noaa_stormevents_extract(year_periods = 1950:1950,
-  data_folder = "data", dat_flag = "noaa_stormevents",
-  remove = FALSE, data_dl_method = "libcurl", url = NULL,
-  metadata_dirname = "metadata")
+noaa_stormevents_extract(
+  year_periods = 1950:1950,
+  data_folder = "data",
+  dat_flag = "noaa_stormevents",
+  remove = FALSE,
+  data_dl_method = "libcurl",
+  url = NULL,
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{year_periods}{(numeric) : 1950:1950 (default) array of years to be

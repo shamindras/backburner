@@ -4,8 +4,11 @@
 \alias{setup_global_variables}
 \title{Setup the global variables for the various extract functions}
 \usage{
-setup_global_variables(dat_flag, data_dl_method = "libcurl",
-  metadata_dirname = "metadata")
+setup_global_variables(
+  dat_flag,
+  data_dl_method = "libcurl",
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{dat_flag}{(character) : name of the data - will appear as data folder

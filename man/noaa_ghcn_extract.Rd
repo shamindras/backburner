@@ -6,10 +6,15 @@
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.}
 \usage{
-noaa_ghcn_extract(year_periods = 1800:1800, data_folder = "data",
-  dat_flag = "noaa_ghcn_daily", remove = FALSE,
-  data_dl_method = "libcurl", url = NULL,
-  metadata_dirname = "metadata")
+noaa_ghcn_extract(
+  year_periods = 1800:1800,
+  data_folder = "data",
+  dat_flag = "noaa_ghcn_daily",
+  remove = FALSE,
+  data_dl_method = "libcurl",
+  url = NULL,
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{year_periods}{(numeric) : 1800:1800 (default) array of years to be
