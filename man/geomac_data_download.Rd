@@ -4,8 +4,12 @@
 \alias{geomac_data_download}
 \title{Download data for geomac data}
 \usage{
-geomac_data_download(geomac_all, year_periods = 2016:2018,
-  data_folder = "data", remove = FALSE)
+geomac_data_download(
+  geomac_all,
+  year_periods = 2016:2018,
+  data_folder = "data",
+  remove = FALSE
+)
 }
 \arguments{
 \item{year_periods}{(numeric) : 1800:1800 (default) array of years to be

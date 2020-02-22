@@ -6,9 +6,14 @@
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.}
 \usage{
-fpa_extract(data_folder = "data", dat_flag = "fpa_fod",
-  data_dl_method = "libcurl", remove = FALSE, url = NULL,
-  metadata_dirname = "metadata")
+fpa_extract(
+  data_folder = "data",
+  dat_flag = "fpa_fod",
+  data_dl_method = "libcurl",
+  remove = FALSE,
+  url = NULL,
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{data_folder}{(character) : "data" (default) data folder name}

@@ -4,8 +4,12 @@
 \alias{fpa_setup_variables}
 \title{Setup the global variables for FPA data}
 \usage{
-fpa_setup_variables(dat_flag = "fpa_fod", data_dl_method = "libcurl",
-  metadata_dirname = "metadata", url = NULL)
+fpa_setup_variables(
+  dat_flag = "fpa_fod",
+  data_dl_method = "libcurl",
+  metadata_dirname = "metadata",
+  url = NULL
+)
 }
 \arguments{
 \item{dat_flag}{(character) : "fpa_fod" (default) name of the data - will

@@ -4,8 +4,10 @@
 \alias{noaa_stormevents_identify}
 \title{Identify NOOA type from file name}
 \usage{
-noaa_stormevents_identify(path, types = c("details", "locations",
-  "fatalities"))
+noaa_stormevents_identify(
+  path,
+  types = c("details", "locations", "fatalities")
+)
 }
 \description{
 Identify NOOA type from file name

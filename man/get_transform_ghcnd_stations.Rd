@@ -4,17 +4,17 @@
 \alias{get_transform_ghcnd_stations}
 \title{Transformed GHCN-Daily Stations file. This is metadata for the GHCN-daily
 file. It contains additional info on US/Canada states and country
-information for each station}
+information for each station.}
 \usage{
 get_transform_ghcnd_stations()
 }
 \value{
-(tibble) : Transformed tibble of GHCN stations metadata
+(sf) : Transformed sf data frame of GHCN stations metadata
 }
 \description{
 Transformed GHCN-Daily Stations file. This is metadata for the GHCN-daily
 file. It contains additional info on US/Canada states and country
-information for each station
+information for each station.
 }
 \examples{
 \dontrun{

@@ -4,9 +4,12 @@
 \alias{noaa_stormevents_setup_variables}
 \title{Setup the global variables for NOOA STORMEVENTS CSV data}
 \usage{
-noaa_stormevents_setup_variables(dat_flag = "noaa_stormevents",
-  data_dl_method = "libcurl", metadata_dirname = "metadata",
-  url = NULL)
+noaa_stormevents_setup_variables(
+  dat_flag = "noaa_stormevents",
+  data_dl_method = "libcurl",
+  metadata_dirname = "metadata",
+  url = NULL
+)
 }
 \arguments{
 \item{dat_flag}{(character) : "noaa_stormevents" (default) name of the data -

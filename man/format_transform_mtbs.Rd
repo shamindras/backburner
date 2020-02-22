@@ -4,8 +4,13 @@
 \alias{format_transform_mtbs}
 \title{Format Specific MTBS Shapefile}
 \usage{
-format_transform_mtbs(dl_date, mtbs_type, orig_colnames, tform_colnames,
-  ds_source = "mtbs")
+format_transform_mtbs(
+  dl_date,
+  mtbs_type,
+  orig_colnames,
+  tform_colnames,
+  ds_source = "mtbs"
+)
 }
 \arguments{
 \item{dl_date}{(date) : Date in which the file were downloaded. This is
