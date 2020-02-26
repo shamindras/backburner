@@ -47,7 +47,6 @@ get_ghcn_stations_us_unq <- function(conn){
 #' downloaded
 #' @param ghcn_stations_us_unq (list) : The output list of GHCN-D stations from
 #' running \code{backburner::get_ghcn_stations_us_unq()}
-#' @param ghcn_dl_date (date) : Date of extraction for the GHCN-D year file
 #' @param ghcn_elem_selvars (character) : The GHCN-D element values that are
 #' selected in the final data
 #'
@@ -55,7 +54,6 @@ get_ghcn_stations_us_unq <- function(conn){
 #' loading to our database
 #' @export
 ghcn_load_us_stations <- function(ghcn_yr,
-                                  ghcn_dl_date,
                                   ghcn_stations_us_unq,
                                   ghcn_elem_selvars){
 
@@ -71,9 +69,9 @@ ghcn_load_us_stations <- function(ghcn_yr,
     # since output is stored in the dir named after the date
     backburner::noaa_ghcn_extract(year_periods = ghcn_yr)
 
-    # Pick out the first and only year
-    ghcn_yr_dat <- backburner::ghcn_transform(dl_date = ghcn_dl_date,
-                                              ghcn_yr)[[1]]
+    # Pick out the first and only year. Note that dl_date is set globally by
+    # noaa_ghcn_extract and its callees.
+    ghcn_yr_dat <- backburner::ghcn_transform(dl_date, ghcn_yr)[[1]]
 
     # Convert the variables we want to select to a tibble
     # We will filter these element values out using this tibble
