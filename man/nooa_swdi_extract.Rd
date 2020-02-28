@@ -6,13 +6,29 @@
 This function will setup global variables, gather information and urls on
 data and metadata and download the data.}
 \usage{
-nooa_swdi_extract(year_periods = 1800:1800, data_folder = "data",
-  dat_flag = "noaa_swdi", remove = FALSE, data_dl_method = "libcurl",
-  url = NULL, metadata_dirname = "metadata")
+nooa_swdi_extract(
+  year_periods = 1995:1995,
+  noaa_swdi_ind_tiles,
+  noaa_swdi_type,
+  data_folder = "data",
+  dat_flag = "noaa_swdi",
+  remove = FALSE,
+  data_dl_method = "libcurl",
+  url = NULL,
+  metadata_dirname = "metadata"
+)
 }
 \arguments{
 \item{year_periods}{(numeric) : 1800:1800 (default) array of years to be
 downloaded}
+
+\item{noaa_swdi_ind_tiles}{(integer) : A value in \code{{0, 1}}, with 1
+indicating that tiles data is to be downloaded and extracted,
+and 0 indicating non-tiles data is to be downloaded and extracted}
+
+\item{noaa_swdi_type}{(character) : Specifying the type of NOAA-SWDI data to
+download and extract. Can be one of the following values:
+\code{hail, mda, meso, nldn, plsr, structure, tvs, warn}}
 
 \item{data_folder}{(character) : "data" (default) data folder name}
 
@@ -37,6 +53,8 @@ data and metadata and download the data.
 }
 \examples{
 \dontrun{
-nooa_swdi_extract(year_periods = 1800:1801)
+nooa_swdi_extract(year_periods = 1995:1996,
+                  noaa_swdi_ind_tiles = 1,
+                  noaa_swdi_type = "hail")
 }
 }

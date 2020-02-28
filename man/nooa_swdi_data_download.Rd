@@ -4,11 +4,25 @@
 \alias{nooa_swdi_data_download}
 \title{Download data for NOOA GHCN data}
 \usage{
-nooa_swdi_data_download(noaa_all, year_periods = 1800:1800,
-  data_folder = "data", remove = FALSE)
+nooa_swdi_data_download(
+  noaa_all,
+  noaa_swdi_ind_tiles,
+  noaa_swdi_type,
+  year_periods = 1995:1995,
+  data_folder = "data",
+  remove = FALSE
+)
 }
 \arguments{
 \item{noaa_all}{(tibble) : Data and Metadata info}
+
+\item{noaa_swdi_ind_tiles}{(integer) : A value in \code{{0, 1}}, with 1
+indicating that tiles data is to be downloaded and extracted,
+and 0 indicating non-tiles data is to be downloaded and extracted}
+
+\item{noaa_swdi_type}{(character) : Specifying the type of NOAA-SWDI data to
+download and extract. Can be one of the following values:
+\code{hail, mda, meso, nldn, plsr, structure, tvs, warn}}
 
 \item{year_periods}{(numeric) : 1800:1800 (default) array of years to be
 downloaded}

@@ -4,18 +4,11 @@
 \alias{ghcn_load_us_stations}
 \title{Read in GHCN-D data for a given year and filter to US stations for loading}
 \usage{
-ghcn_load_us_stations(
-  ghcn_yr,
-  ghcn_dl_date,
-  ghcn_stations_us_unq,
-  ghcn_elem_selvars
-)
+ghcn_load_us_stations(ghcn_yr, ghcn_stations_us_unq, ghcn_elem_selvars)
 }
 \arguments{
 \item{ghcn_yr}{(integer) : The year in which the GHCN-D data is to be
 downloaded}
-
-\item{ghcn_dl_date}{(date) : Date of extraction for the GHCN-D year file}
 
 \item{ghcn_stations_us_unq}{(list) : The output list of GHCN-D stations from
 running \code{backburner::get_ghcn_stations_us_unq()}}

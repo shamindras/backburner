@@ -18,8 +18,11 @@ nooa_swdi_setup_variables <- function(dat_flag = 'noaa_swdi',
                                        metadata_dirname = metadata_dirname)
 
     RE_PTRN_ARCHIVE <<- "(zip|gz)$" # generic archive matching pattern
-    RE_PTRN_YEAR <<- "^\\d{1,4}"
+    RE_PTRN_YEAR <<- "\\d{4}"
     RE_PTRN_CSV_ONLY <<- "csv$"
+    RE_PTRN_TILES <<- "tiles"
+    RE_PTRN_SWDI_TYPE_TILES <<- "([:alpha:]|\\-)+[:alpha:]+"
+    RE_PTRN_SWDI_TYPE <<- "^[:alpha:]+"
 
     if (is.null(url)){
         url <- "ftp://ftp.ncdc.noaa.gov/pub/data/swdi/database-csv/v2/"
@@ -55,6 +58,18 @@ nooa_swdi_read_data <- function(){
                               stringr::str_extract(
                                   string = fname,
                                   pattern = RE_PTRN_YEAR)),
+                      ind_tiles =
+                          base::as.integer(
+                              stringr::str_detect(string = fname,
+                                                  pattern = RE_PTRN_TILES)),
+                      swdi_type_tiles =
+                              stringr::str_extract(
+                                  string = fname,
+                                  pattern = RE_PTRN_SWDI_TYPE_TILES),
+                      swdi_type =
+                          stringr::str_extract(
+                              string = fname,
+                              pattern = RE_PTRN_SWDI_TYPE),
                       mod_datetime =
                           lubridate::mdy_hm(mod_datetime,
                                             locale = "en_US.UTF-8"),
@@ -108,7 +123,8 @@ nooa_swdi_metadata <- function(noaa_urls){
                       outdir = fs::path_dir(path = outpath)) %>%
         # Reorder dataset
         dplyr::select(fname, furl, year_data, size_mb, mod_datetime,
-                      ind_zip, ind_mtda, ind_csv_only,
+                      ind_zip, ind_tiles, swdi_type_tiles, swdi_type,
+                      ind_mtda, ind_csv_only,
                       dl_datetime, dl_date, dl_sysname,
                       dat_src_flag, outpath, ind_mtda, outdir)
 
@@ -118,13 +134,22 @@ nooa_swdi_metadata <- function(noaa_urls){
 
 #' Download data for NOOA GHCN data
 #' @param noaa_all (tibble) : Data and Metadata info
+#' @param noaa_swdi_ind_tiles (integer) : A value in \code{{0, 1}}, with 1
+#' indicating that tiles data is to be downloaded and extracted,
+#' and 0 indicating non-tiles data is to be downloaded and extracted
+#' @param noaa_swdi_type (character) : Specifying the type of NOAA-SWDI data to
+#' download and extract. Can be one of the following values:
+#' \code{hail, mda, meso, nldn, plsr, structure, tvs, warn}
 #' @param year_periods (numeric) : 1800:1800 (default) array of years to be
 #'                                 downloaded
 #' @param data_folder (character) : "data" (default) data folder name
 #' @param remove (logical) : FALSE (default) remove .zip file after extraction
 #'
 #' @export
-nooa_swdi_data_download <- function(noaa_all, year_periods = 1800:1800,
+nooa_swdi_data_download <- function(noaa_all,
+                                    noaa_swdi_ind_tiles,
+                                    noaa_swdi_type,
+                                    year_periods = 1995:1995,
                                     data_folder = 'data', remove = FALSE){
 
     outpath_mtda <- here::here(data_folder, DAT_SRC_FLAG, base::format(dl_date,
@@ -149,6 +174,8 @@ nooa_swdi_data_download <- function(noaa_all, year_periods = 1800:1800,
     noaa_all %T>%
         readr::write_csv(x = ., path = outpath_mtda_all, col_names = TRUE) %>%
         dplyr::filter(year_data %in% year_periods) %>%
+        dplyr::filter(ind_tiles == noaa_swdi_ind_tiles,
+                      swdi_type == noaa_swdi_type) %>%
         dplyr::select(furl, outpath, ind_zip, outdir) %>%
         dplyr::mutate(extr = base::as.logical(ind_zip),
                       remove = base::as.logical(remove)) %>%
@@ -163,6 +190,12 @@ nooa_swdi_data_download <- function(noaa_all, year_periods = 1800:1800,
 #' @param dat_flag (character) : "nooa_swdi_daily" (default) name of the data -
 #'                               will appear as data folder name when data are
 #'                               saved
+#' @param noaa_swdi_ind_tiles (integer) : A value in \code{{0, 1}}, with 1
+#' indicating that tiles data is to be downloaded and extracted,
+#' and 0 indicating non-tiles data is to be downloaded and extracted
+#' @param noaa_swdi_type (character) : Specifying the type of NOAA-SWDI data to
+#' download and extract. Can be one of the following values:
+#' \code{hail, mda, meso, nldn, plsr, structure, tvs, warn}
 #' @param data_dl_method (character) : "libcurl" (default) data download method
 #' @param metadata_dirname (character) : "metadata" (default) metadata
 #'                                       folder name
@@ -175,10 +208,15 @@ nooa_swdi_data_download <- function(noaa_all, year_periods = 1800:1800,
 #'
 #' @examples
 #' \dontrun{
-#' nooa_swdi_extract(year_periods = 1800:1801)
+#' nooa_swdi_extract(year_periods = 1995:1996,
+#'                   noaa_swdi_ind_tiles = 1,
+#'                   noaa_swdi_type = "hail")
 #' }
 #' @export
-nooa_swdi_extract <- function(year_periods = 1800:1800, data_folder = 'data',
+nooa_swdi_extract <- function(year_periods = 1995:1995,
+                              noaa_swdi_ind_tiles,
+                              noaa_swdi_type,
+                              data_folder = 'data',
                               dat_flag = 'noaa_swdi', remove = FALSE,
                               data_dl_method = 'libcurl', url = NULL,
                               metadata_dirname = 'metadata'){
@@ -187,6 +225,9 @@ nooa_swdi_extract <- function(year_periods = 1800:1800, data_folder = 'data',
                               url = url, metadata_dirname=metadata_dirname)
     noaa_urls <- nooa_swdi_read_data()
     noaa_all <- nooa_swdi_metadata(noaa_urls = noaa_urls)
-    nooa_swdi_data_download(noaa_all = noaa_all, year_periods = year_periods,
+    nooa_swdi_data_download(noaa_all = noaa_all,
+                            noaa_swdi_ind_tiles = noaa_swdi_ind_tiles,
+                            noaa_swdi_type = noaa_swdi_type,
+                            year_periods = year_periods,
                             data_folder = data_folder, remove = remove)
 }
