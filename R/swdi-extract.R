@@ -1,6 +1,6 @@
-#' Setup the global variables for NOOA GHCN data
+#' Setup the global variables for NOOA SWDI data
 #'
-#' @param dat_flag (character) : "noaa_ghcn_daily" (default) name of the data -
+#' @param dat_flag (character) : "noaa_swdi" (default) name of the data -
 #'                               will appear as data folder name when data are
 #'                               saved
 #' @param data_dl_method (character) : "libcurl" (default) data download method
@@ -31,7 +31,7 @@ nooa_swdi_setup_variables <- function(dat_flag = 'noaa_swdi',
 }
 
 
-#' Extracting information on the download URLs forNOOA GHCN data
+#' Extracting information on the download URLs for NOOA SWDI data
 #'
 #' @export
 nooa_swdi_read_data <- function(){
@@ -63,9 +63,9 @@ nooa_swdi_read_data <- function(){
                               stringr::str_detect(string = fname,
                                                   pattern = RE_PTRN_TILES)),
                       swdi_type_tiles =
-                              stringr::str_extract(
-                                  string = fname,
-                                  pattern = RE_PTRN_SWDI_TYPE_TILES),
+                          stringr::str_extract(
+                              string = fname,
+                              pattern = RE_PTRN_SWDI_TYPE_TILES),
                       swdi_type =
                           stringr::str_extract(
                               string = fname,
@@ -97,11 +97,15 @@ nooa_swdi_read_data <- function(){
 }
 
 
-#' Download full data and metadata information for NOOA GHCN data
-#' @param noaa_urls (tibble) : NOOA GHCN URLs tibble
+#' Download full data and metadata information for NOOA SWDI data
+#' @param noaa_urls (tibble) : NOOA SWDI URLs tibble
+#' @param noaa_swdi_ind_tiles (integer) : A value in \code{{0, 1}}, with 1
+#' indicating that tiles data is to be downloaded and extracted,
+#' and 0 indicating non-tiles data is to be downloaded and extracted
 #'
 #' @export
-nooa_swdi_metadata <- function(noaa_urls){
+nooa_swdi_metadata <- function(noaa_urls, noaa_swdi_ind_tiles){
+    tiles_path <- dplyr::if_else(noaa_swdi_ind_tiles == 1, "tiles", "no_tiles")
     noaa_all <- noaa_urls %>%
         dplyr::mutate(furl = stringr::str_c(noaa_url,
                                             fname, sep = ""),
@@ -111,12 +115,16 @@ nooa_swdi_metadata <- function(noaa_urls){
                                                     DAT_SRC_FLAG,
                                                     base::format(dl_date,
                                                                  "%Y%m%d"),
+                                                    tiles_path,
+                                                    swdi_type,
                                                     year_data,
                                                     fname),
                                          here::here("data",
                                                     DAT_SRC_FLAG,
                                                     base::format(dl_date,
                                                                  "%Y%m%d"),
+                                                    tiles_path,
+                                                    swdi_type,
                                                     GLOBAL_MTDA_DIRNAME,
                                                     fname)),
                       ind_mtda = as.integer(base::is.na(year_data)),
@@ -132,7 +140,7 @@ nooa_swdi_metadata <- function(noaa_urls){
 }
 
 
-#' Download data for NOOA GHCN data
+#' Download data for NOOA SWDI data
 #' @param noaa_all (tibble) : Data and Metadata info
 #' @param noaa_swdi_ind_tiles (integer) : A value in \code{{0, 1}}, with 1
 #' indicating that tiles data is to be downloaded and extracted,
@@ -152,13 +160,18 @@ nooa_swdi_data_download <- function(noaa_all,
                                     year_periods = 1995:1995,
                                     data_folder = 'data', remove = FALSE){
 
+    tiles_path <- dplyr::if_else(noaa_swdi_ind_tiles == 1, "tiles", "no_tiles")
     outpath_mtda <- here::here(data_folder, DAT_SRC_FLAG, base::format(dl_date,
                                                                        "%Y%m%d"),
+                               tiles_path,
+                               noaa_swdi_type,
                                stringr::str_c(DAT_SRC_FLAG,
                                               "metadata.csv",
                                               sep = "_"))
     outpath_mtda_all <- here::here(data_folder, DAT_SRC_FLAG, base::format(dl_date,
                                                                            "%Y%m%d"),
+                                   tiles_path,
+                                   noaa_swdi_type,
                                    stringr::str_c(DAT_SRC_FLAG,
                                                   "metadata_all.csv",
                                                   sep = "_"))
@@ -181,7 +194,7 @@ nooa_swdi_data_download <- function(noaa_all,
                       remove = base::as.logical(remove)) %>%
         dplyr::select(-ind_zip) %T>%
         readr::write_csv(x = ., path = outpath_mtda, col_names = TRUE) %>%
-        purrr::pwalk(dl_extract_file)
+        purrr::pwalk(backburner::dl_extract_file)
 }
 
 #' Wrapper for NOOA GCHN data extraction pipeline.
@@ -224,7 +237,8 @@ nooa_swdi_extract <- function(year_periods = 1995:1995,
                               data_dl_method = data_dl_method,
                               url = url, metadata_dirname=metadata_dirname)
     noaa_urls <- nooa_swdi_read_data()
-    noaa_all <- nooa_swdi_metadata(noaa_urls = noaa_urls)
+    noaa_all <- nooa_swdi_metadata(noaa_urls = noaa_urls,
+                                   noaa_swdi_ind_tiles = noaa_swdi_ind_tiles)
     nooa_swdi_data_download(noaa_all = noaa_all,
                             noaa_swdi_ind_tiles = noaa_swdi_ind_tiles,
                             noaa_swdi_type = noaa_swdi_type,

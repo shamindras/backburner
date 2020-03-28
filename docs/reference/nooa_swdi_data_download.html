@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download data for NOOA GHCN data — nooa_swdi_data_download • backburner</title>
+<title>Download data for NOOA SWDI data — nooa_swdi_data_download • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Download data for NOOA GHCN data — nooa_swdi_data_download" />
-<meta property="og:description" content="Download data for NOOA GHCN data" />
+<meta property="og:title" content="Download data for NOOA SWDI data — nooa_swdi_data_download" />
+<meta property="og:description" content="Download data for NOOA SWDI data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,17 +123,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download data for NOOA GHCN data</h1>
+    <h1>Download data for NOOA SWDI data</h1>
     <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-extract.R'><code>R/swdi-extract.R</code></a></small>
     <div class="hidden name"><code>nooa_swdi_data_download.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Download data for NOOA GHCN data</p>
+    <p>Download data for NOOA SWDI data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nooa_swdi_data_download</span>(<span class='no'>noaa_all</span>, <span class='kw'>year_periods</span> <span class='kw'>=</span> <span class='fl'>1800</span>:<span class='fl'>1800</span>,
-  <span class='kw'>data_folder</span> <span class='kw'>=</span> <span class='st'>"data"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>nooa_swdi_data_download</span>(
+  <span class='no'>noaa_all</span>,
+  <span class='no'>noaa_swdi_ind_tiles</span>,
+  <span class='no'>noaa_swdi_type</span>,
+  <span class='kw'>year_periods</span> <span class='kw'>=</span> <span class='fl'>1995</span>:<span class='fl'>1995</span>,
+  <span class='kw'>data_folder</span> <span class='kw'>=</span> <span class='st'>"data"</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,6 +147,18 @@
     <tr>
       <th>noaa_all</th>
       <td><p>(tibble) : Data and Metadata info</p></td>
+    </tr>
+    <tr>
+      <th>noaa_swdi_ind_tiles</th>
+      <td><p>(integer) : A value in <code>{0, 1}</code>, with 1
+indicating that tiles data is to be downloaded and extracted,
+and 0 indicating non-tiles data is to be downloaded and extracted</p></td>
+    </tr>
+    <tr>
+      <th>noaa_swdi_type</th>
+      <td><p>(character) : Specifying the type of NOAA-SWDI data to
+download and extract. Can be one of the following values:
+<code>hail, mda, meso, nldn, plsr, structure, tvs, warn</code></p></td>
     </tr>
     <tr>
       <th>year_periods</th>
@@ -171,7 +189,7 @@ downloaded</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Shamindra Shrotriya, Niccolo Dalmasso, Alex Reinhart.</p>
+  <p>Developed by Shamindra Shrotriya, Niccolò Dalmasso, Alex Reinhart.</p>
 </div>
 
 <div class="pkgdown">

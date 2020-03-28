@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read in GHCN-D data for a given year and filter to US stations for loading — ghcn_load_us_stations • backburner</title>
+<title>Wrapper for NOAA SWDI transformation pipeline. — nooa_swdi_transform • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Read in GHCN-D data for a given year and filter to US stations for loading — ghcn_load_us_stations" />
-<meta property="og:description" content="Read in GHCN-D data for a given year and filter to US stations for loading" />
+<meta property="og:title" content="Wrapper for NOAA SWDI transformation pipeline. — nooa_swdi_transform" />
+<meta property="og:description" content="Wrapper for NOAA SWDI transformation pipeline." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,41 +123,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read in GHCN-D data for a given year and filter to US stations for loading</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/ghcn-load-utils.R'><code>R/ghcn-load-utils.R</code></a></small>
-    <div class="hidden name"><code>ghcn_load_us_stations.Rd</code></div>
+    <h1>Wrapper for NOAA SWDI transformation pipeline.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-transform.R'><code>R/swdi-transform.R</code></a></small>
+    <div class="hidden name"><code>nooa_swdi_transform.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read in GHCN-D data for a given year and filter to US stations for loading</p>
+    <p>Wrapper for NOAA SWDI transformation pipeline.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ghcn_load_us_stations</span>(<span class='no'>ghcn_yr</span>, <span class='no'>ghcn_stations_us_unq</span>, <span class='no'>ghcn_elem_selvars</span>)</pre>
+    <pre class="usage"><span class='fu'>nooa_swdi_transform</span>(
+  <span class='no'>dl_date</span>,
+  <span class='no'>yrs</span>,
+  <span class='kw'>ds_source</span> <span class='kw'>=</span> <span class='st'>"noaa_swdi"</span>,
+  <span class='kw'>noaa_swdi_ind_tiles</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>noaa_swdi_type</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ghcn_yr</th>
-      <td><p>(integer) : The year in which the GHCN-D data is to be
-downloaded</p></td>
+      <th>dl_date</th>
+      <td><p>(date) : Date in which the file were downloaded. This is
+going to look for a folder in the `data/ds_source/` named
+as this date</p></td>
     </tr>
     <tr>
-      <th>ghcn_stations_us_unq</th>
-      <td><p>(list) : The output list of GHCN-D stations from
-running <code><a href='get_ghcn_stations_us_unq.html'>backburner::get_ghcn_stations_us_unq()</a></code></p></td>
+      <th>yrs</th>
+      <td><p>(array): numerical array with the years which needs to be transformed</p></td>
     </tr>
     <tr>
-      <th>ghcn_elem_selvars</th>
-      <td><p>(character) : The GHCN-D element values that are
-selected in the final data</p></td>
+      <th>ds_source</th>
+      <td><p>(character) : data names. Default to "noaa_swdi"</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(tibble) : Cleaned and final transformed GHCN-D data for
-loading to our database</p>
+    <p>(list) : A list of transformed shapefiles, in which the names is the year</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

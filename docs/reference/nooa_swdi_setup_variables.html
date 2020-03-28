@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup the global variables for NOOA GHCN data — nooa_swdi_setup_variables • backburner</title>
+<title>Setup the global variables for NOOA SWDI data — nooa_swdi_setup_variables • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Setup the global variables for NOOA GHCN data — nooa_swdi_setup_variables" />
-<meta property="og:description" content="Setup the global variables for NOOA GHCN data" />
+<meta property="og:title" content="Setup the global variables for NOOA SWDI data — nooa_swdi_setup_variables" />
+<meta property="og:description" content="Setup the global variables for NOOA SWDI data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,25 +123,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup the global variables for NOOA GHCN data</h1>
+    <h1>Setup the global variables for NOOA SWDI data</h1>
     <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-extract.R'><code>R/swdi-extract.R</code></a></small>
     <div class="hidden name"><code>nooa_swdi_setup_variables.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Setup the global variables for NOOA GHCN data</p>
+    <p>Setup the global variables for NOOA SWDI data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nooa_swdi_setup_variables</span>(<span class='kw'>dat_flag</span> <span class='kw'>=</span> <span class='st'>"noaa_swdi"</span>,
-  <span class='kw'>data_dl_method</span> <span class='kw'>=</span> <span class='st'>"libcurl"</span>, <span class='kw'>metadata_dirname</span> <span class='kw'>=</span> <span class='st'>"metadata"</span>,
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>nooa_swdi_setup_variables</span>(
+  <span class='kw'>dat_flag</span> <span class='kw'>=</span> <span class='st'>"noaa_swdi"</span>,
+  <span class='kw'>data_dl_method</span> <span class='kw'>=</span> <span class='st'>"libcurl"</span>,
+  <span class='kw'>metadata_dirname</span> <span class='kw'>=</span> <span class='st'>"metadata"</span>,
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dat_flag</th>
-      <td><p>(character) : "noaa_ghcn_daily" (default) name of the data -
+      <td><p>(character) : "noaa_swdi" (default) name of the data -
 will appear as data folder name when data are
 saved</p></td>
     </tr>
@@ -175,7 +178,7 @@ in the function body</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Shamindra Shrotriya, Niccolo Dalmasso, Alex Reinhart.</p>
+  <p>Developed by Shamindra Shrotriya, Niccolò Dalmasso, Alex Reinhart.</p>
 </div>
 
 <div class="pkgdown">

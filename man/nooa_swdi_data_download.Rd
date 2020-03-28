@@ -2,7 +2,7 @@
 % Please edit documentation in R/swdi-extract.R
 \name{nooa_swdi_data_download}
 \alias{nooa_swdi_data_download}
-\title{Download data for NOOA GHCN data}
+\title{Download data for NOOA SWDI data}
 \usage{
 nooa_swdi_data_download(
   noaa_all,
@@ -32,5 +32,5 @@ downloaded}
 \item{remove}{(logical) : FALSE (default) remove .zip file after extraction}
 }
 \description{
-Download data for NOOA GHCN data
+Download data for NOOA SWDI data
 }
