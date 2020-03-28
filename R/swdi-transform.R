@@ -117,10 +117,17 @@ get_transform_noaa_swdi <- function(fpath, new_colnames){
                            col_types = "cddd")
 
     csv_df <- csv_df %>%
-        magrittr::set_colnames(x = ., value = new_colnames) %>%
-        dplyr::mutate(record_dt = lubridate::ymd(record_dt))
+                magrittr::set_colnames(x = ., value = new_colnames) %>%
+                dplyr::mutate(record_dt = lubridate::ymd(record_dt))
 
-    base::return(csv_df)
+    # Convert to sf object (for geo lat/long pairs) under standard projection
+    csv_sf <-  sf::st_as_sf(csv_df,
+                            coords = c("geo_lon", "geo_lat"),
+                            crs = 4326,
+                            agr = "constant") %>%
+                dplyr::select(record_dt, geometry, tot_count)
+
+    base::return(csv_sf)
 }
 
 
