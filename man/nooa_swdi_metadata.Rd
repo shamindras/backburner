@@ -2,13 +2,17 @@
 % Please edit documentation in R/swdi-extract.R
 \name{nooa_swdi_metadata}
 \alias{nooa_swdi_metadata}
-\title{Download full data and metadata information for NOOA GHCN data}
+\title{Download full data and metadata information for NOOA SWDI data}
 \usage{
-nooa_swdi_metadata(noaa_urls)
+nooa_swdi_metadata(noaa_urls, noaa_swdi_ind_tiles)
 }
 \arguments{
-\item{noaa_urls}{(tibble) : NOOA GHCN URLs tibble}
+\item{noaa_urls}{(tibble) : NOOA SWDI URLs tibble}
+
+\item{noaa_swdi_ind_tiles}{(integer) : A value in \code{{0, 1}}, with 1
+indicating that tiles data is to be downloaded and extracted,
+and 0 indicating non-tiles data is to be downloaded and extracted}
 }
 \description{
-Download full data and metadata information for NOOA GHCN data
+Download full data and metadata information for NOOA SWDI data
 }

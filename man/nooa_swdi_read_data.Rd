@@ -2,10 +2,10 @@
 % Please edit documentation in R/swdi-extract.R
 \name{nooa_swdi_read_data}
 \alias{nooa_swdi_read_data}
-\title{Extracting information on the download URLs forNOOA GHCN data}
+\title{Extracting information on the download URLs for NOOA SWDI data}
 \usage{
 nooa_swdi_read_data()
 }
 \description{
-Extracting information on the download URLs forNOOA GHCN data
+Extracting information on the download URLs for NOOA SWDI data
 }

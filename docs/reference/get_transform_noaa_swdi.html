@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read in GHCN-D data for a given year and filter to US stations for loading — ghcn_load_us_stations • backburner</title>
+<title>Transform the NOAA SWDI file — get_transform_noaa_swdi • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,10 @@
 
 
 
-<meta property="og:title" content="Read in GHCN-D data for a given year and filter to US stations for loading — ghcn_load_us_stations" />
-<meta property="og:description" content="Read in GHCN-D data for a given year and filter to US stations for loading" />
+<meta property="og:title" content="Transform the NOAA SWDI file — get_transform_noaa_swdi" />
+<meta property="og:description" content="TODO: Need to add assertions to check the dimension of the column names and
+      also the values. Somehow need to parse in the metadata from the web
+      and get the field values in an automated manner." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,41 +125,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read in GHCN-D data for a given year and filter to US stations for loading</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/ghcn-load-utils.R'><code>R/ghcn-load-utils.R</code></a></small>
-    <div class="hidden name"><code>ghcn_load_us_stations.Rd</code></div>
+    <h1>Transform the NOAA SWDI file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-transform.R'><code>R/swdi-transform.R</code></a></small>
+    <div class="hidden name"><code>get_transform_noaa_swdi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read in GHCN-D data for a given year and filter to US stations for loading</p>
+    <p>TODO: Need to add assertions to check the dimension of the column names and
+      also the values. Somehow need to parse in the metadata from the web
+      and get the field values in an automated manner.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ghcn_load_us_stations</span>(<span class='no'>ghcn_yr</span>, <span class='no'>ghcn_stations_us_unq</span>, <span class='no'>ghcn_elem_selvars</span>)</pre>
+    <pre class="usage"><span class='fu'>get_transform_noaa_swdi</span>(<span class='no'>fpath</span>, <span class='no'>new_colnames</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ghcn_yr</th>
-      <td><p>(integer) : The year in which the GHCN-D data is to be
-downloaded</p></td>
+      <th>fpath</th>
+      <td><p>(character) : The path to the shapefile we want to transform</p></td>
     </tr>
     <tr>
-      <th>ghcn_stations_us_unq</th>
-      <td><p>(list) : The output list of GHCN-D stations from
-running <code><a href='get_ghcn_stations_us_unq.html'>backburner::get_ghcn_stations_us_unq()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>ghcn_elem_selvars</th>
-      <td><p>(character) : The GHCN-D element values that are
-selected in the final data</p></td>
+      <th>new_colnames</th>
+      <td><p>(character) : New list of colnames we want to set for
+our transformed output shapefile. If <code>NULL</code> the column names will get
+converted to lower case and spaces replaced by underscores via the
+<code>janitor</code> package</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(tibble) : Cleaned and final transformed GHCN-D data for
-loading to our database</p>
+    <p>(sf object) : transformed shapefile</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

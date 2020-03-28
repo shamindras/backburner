@@ -2,7 +2,7 @@
 % Please edit documentation in R/swdi-extract.R
 \name{nooa_swdi_setup_variables}
 \alias{nooa_swdi_setup_variables}
-\title{Setup the global variables for NOOA GHCN data}
+\title{Setup the global variables for NOOA SWDI data}
 \usage{
 nooa_swdi_setup_variables(
   dat_flag = "noaa_swdi",
@@ -12,7 +12,7 @@ nooa_swdi_setup_variables(
 )
 }
 \arguments{
-\item{dat_flag}{(character) : "noaa_ghcn_daily" (default) name of the data -
+\item{dat_flag}{(character) : "noaa_swdi" (default) name of the data -
 will appear as data folder name when data are
 saved}
 
@@ -25,5 +25,5 @@ folder name}
 in the function body}
 }
 \description{
-Setup the global variables for NOOA GHCN data
+Setup the global variables for NOOA SWDI data
 }
