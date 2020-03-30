@@ -62,39 +62,6 @@ get_geomac_mtda_paths <- function(ds_source, dl_date, yr){
     base::return(outdir_mtda_yr_files)
 }
 
-#' Transform the geomac file
-#'
-#' @param fpath (character) : The path to the shapefile we want to transform
-#' @param new_colnames (character) : New list of colnames we want to set for our
-#'     transformed output shapefile. If \code{NULL} the column names will get
-#'     converted to lower case and spaces replaced by underscores via the
-#'     \code{janitor} package
-#' @param target_srid (numeric): Transform the geometries into this coordinate
-#'     system, specified by SRID (default: 4326, GPS latitude/longitude)
-#'
-#' @return (sf object) : transformed shapefile
-#' @export
-get_transform_geomac <- function(fpath, exp_orig_colnames, new_colnames, target_srid = 4326){
-    shp_df <- sf::read_sf(fpath) %>% sf::st_transform(target_srid)
-    readin_colnames <- base::colnames(x = shp_df)
-
-    # Check if the colnames that we read in from the required dataframe
-    # match those that we expect from our global variables list
-    base::stopifnot(assertthat::are_equal(x = readin_colnames,
-                                          y = exp_orig_colnames))
-
-    # Set the colnames manually or automatically convert them to lower case
-    if(!is.null(new_colnames)){
-        shp_df <- sf::read_sf(fpath) %>%
-            magrittr::set_colnames(x = ., value = new_colnames)
-    } else {
-        shp_df <- sf::read_sf(fpath) %>%
-            janitor::clean_names(dat = ., case = "lower")
-    }
-
-    base::return(shp_df)
-}
-
 
 #' Get data dictionaries for column names given .xlxs file
 #'
@@ -144,11 +111,13 @@ get_ddict_geomac <- function(ddict_xlsx_path, cols_rng){
 #'                     of the data dictionaries retrieved in the .xlsx
 #' @param ddict_xlsx_path : path of the data dictionary .xlsx
 #' @param cols_rng : column ranges to extract from the .xlsx
+#' @param target_srid (numeric): Transform the geometries into this coordinate
+#'     system, specified by SRID (default: 4326, GPS latitude/longitude)
 #'
 #' @return Shapefile dataframe
 #' @export
-get_geomac_new_cnames <- function(fpath, year, ddict_type,
-                                  ddict_xlsx_path, cols_rng){
+get_geomac_new_cnames <- function(fpath, year, ddict_type, ddict_xlsx_path,
+                                  cols_rng, target_srid = 4326){
 
     # Obtain all dictionaries of geomac variable name mappings
     ddict_geomac <- get_ddict_geomac(ddict_xlsx_path = ddict_xlsx_path,
@@ -158,7 +127,7 @@ get_geomac_new_cnames <- function(fpath, year, ddict_type,
     geomac_dict <- ddict_geomac[[ddict_type]]
 
     # Read in shapefile
-    shp_df <- sf::read_sf(fpath)
+    shp_df <- sf::read_sf(fpath) %>% sf::st_transform(target_srid)
 
     # Get raw column names and convert to lower case
     orig_colnames_lwr <- base::colnames(x = shp_df) %>%

@@ -5,7 +5,14 @@
 \title{Set Shapefile column names given dictionary names fetched from .xlsx
 data dictionary file.}
 \usage{
-get_geomac_new_cnames(fpath, year, ddict_type, ddict_xlsx_path, cols_rng)
+get_geomac_new_cnames(
+  fpath,
+  year,
+  ddict_type,
+  ddict_xlsx_path,
+  cols_rng,
+  target_srid = 4326
+)
 }
 \arguments{
 \item{fpath}{: shapefile path}
@@ -18,6 +25,9 @@ of the data dictionaries retrieved in the .xlsx}
 \item{ddict_xlsx_path}{: path of the data dictionary .xlsx}
 
 \item{cols_rng}{: column ranges to extract from the .xlsx}
+
+\item{target_srid}{(numeric): Transform the geometries into this coordinate
+system, specified by SRID (default: 4326, GPS latitude/longitude)}
 }
 \value{
 Shapefile dataframe

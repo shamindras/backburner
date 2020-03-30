@@ -142,7 +142,14 @@ data dictionary file.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_geomac_new_cnames</span>(<span class='no'>fpath</span>, <span class='no'>year</span>, <span class='no'>ddict_type</span>, <span class='no'>ddict_xlsx_path</span>, <span class='no'>cols_rng</span>)</pre>
+    <pre class="usage"><span class='fu'>get_geomac_new_cnames</span>(
+  <span class='no'>fpath</span>,
+  <span class='no'>year</span>,
+  <span class='no'>ddict_type</span>,
+  <span class='no'>ddict_xlsx_path</span>,
+  <span class='no'>cols_rng</span>,
+  <span class='kw'>target_srid</span> <span class='kw'>=</span> <span class='fl'>4326</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,6 +174,11 @@ of the data dictionaries retrieved in the .xlsx</p></td>
     <tr>
       <th>cols_rng</th>
       <td><p>: column ranges to extract from the .xlsx</p></td>
+    </tr>
+    <tr>
+      <th>target_srid</th>
+      <td><p>(numeric): Transform the geometries into this coordinate
+system, specified by SRID (default: 4326, GPS latitude/longitude)</p></td>
     </tr>
     </table>
     
