@@ -2,7 +2,7 @@
 #'
 #' @return (array): character array with the variable names
 #' @export
-nooa_swdi_transform_col_names <- function(){
+noaa_swdi_transform_col_names <- function(){
     TFORM_NOAA_SWDI_DAILY_COLNAMES <- c("record_dt",
                                         "geo_lon",
                                         "geo_lat",
@@ -30,7 +30,7 @@ nooa_swdi_transform_col_names <- function(){
 #'
 #' @return A tibble with filenames
 #' @export
-get_nooa_swdi_mtda_paths <- function(ds_source = 'noaa_swdi',
+get_noaa_swdi_mtda_paths <- function(ds_source = 'noaa_swdi',
                                      dl_date,
                                      yr,
                                      noaa_swdi_ind_tiles,
@@ -141,7 +141,7 @@ get_transform_noaa_swdi <- function(fpath, new_colnames){
 #' @return (list) : A list of transformed shapefiles, in which the names is the year
 #'
 #' @export
-nooa_swdi_transform <- function(dl_date,
+noaa_swdi_transform <- function(dl_date,
                                 yrs,
                                 ds_source = "noaa_swdi",
                                 noaa_swdi_ind_tiles = 1,
@@ -150,11 +150,11 @@ nooa_swdi_transform <- function(dl_date,
     # NOTE: Only tiles transform is supported currently
     assertthat::assert_that(noaa_swdi_ind_tiles == 1)
 
-    tform_columns <- nooa_swdi_transform_col_names()
+    tform_columns <- noaa_swdi_transform_col_names()
 
     outdir_mtda_yr_files <- yrs %>%
         purrr::map_df(.x = ., .f =
-                          ~get_nooa_swdi_mtda_paths(
+                          ~get_noaa_swdi_mtda_paths(
                               ds_source = ds_source,
                               dl_date = dl_date,
                               yr = .x,
