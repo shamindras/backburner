@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download full data and metadata information for NOOA GHCN data — nooa_ghcn_metadata • backburner</title>
+<title>Provides a helper dataframe to list all of the files extracted for NOAA SWDI
+for a specified year of download — get_noaa_swdi_mtda_paths • backburner</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,9 +37,11 @@
 
 
 
-<meta property="og:title" content="Download full data and metadata information for NOOA GHCN data — nooa_ghcn_metadata" />
+<meta property="og:title" content="Provides a helper dataframe to list all of the files extracted for NOAA SWDI
+for a specified year of download — get_noaa_swdi_mtda_paths" />
 
-<meta property="og:description" content="Download full data and metadata information for NOOA GHCN data" />
+<meta property="og:description" content="Provides a helper dataframe to list all of the files extracted for NOAA SWDI
+for a specified year of download" />
 
 
 
@@ -126,27 +129,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download full data and metadata information for NOOA GHCN data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/ghcn-extract.R'><code>R/ghcn-extract.R</code></a></small>
-    <div class="hidden name"><code>nooa_ghcn_metadata.Rd</code></div>
+    <h1>Provides a helper dataframe to list all of the files extracted for NOAA SWDI
+for a specified year of download</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-transform.R'><code>R/swdi-transform.R</code></a></small>
+    <div class="hidden name"><code>get_noaa_swdi_mtda_paths.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Download full data and metadata information for NOOA GHCN data</p>
+    <p>Provides a helper dataframe to list all of the files extracted for NOAA SWDI
+for a specified year of download</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>nooa_ghcn_metadata</span>(<span class='no'>noaa_urls</span>)</pre>
+    <pre class="usage"><span class='fu'>get_noaa_swdi_mtda_paths</span>(
+  <span class='kw'>ds_source</span> <span class='kw'>=</span> <span class='st'>"noaa_swdi"</span>,
+  <span class='no'>dl_date</span>,
+  <span class='no'>yr</span>,
+  <span class='no'>noaa_swdi_ind_tiles</span>,
+  <span class='no'>noaa_swdi_type</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>noaa_urls</th>
-      <td><p>(tibble) : NOOA GHCN URLs tibble</p></td>
+      <th>ds_source</th>
+      <td><p>(character) : name of the data source, default to "noaa_swdi"</p></td>
+    </tr>
+    <tr>
+      <th>dl_date</th>
+      <td><p>(date) : Date in which the file were downloaded. This is
+going to look for a folder in the `data/ds_source/` named
+as this date</p></td>
+    </tr>
+    <tr>
+      <th>yr</th>
+      <td><p>(integer) : The specifics NOAA SWDI year CSV we want to
+transform</p></td>
+    </tr>
+    <tr>
+      <th>noaa_swdi_ind_tiles</th>
+      <td><p>(integer) : A value in <code>{0, 1}</code>, with 1
+indicating that tiles data is to be downloaded and extracted,
+and 0 indicating non-tiles data is to be downloaded and extracted. Currently
+only a value of 1 i.e. tiles is supported.</p></td>
+    </tr>
+    <tr>
+      <th>noaa_swdi_type</th>
+      <td><p>(character) : Specifying the type of NOAA-SWDI data to
+download and extract. Can be one of the following values:
+<code>hail, mda, meso, nldn, plsr, structure, tvs, warn</code></p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble with filenames</p>
     
 
   </div>

@@ -4,15 +4,23 @@
 \alias{get_transform_geomac}
 \title{Transform the geomac file}
 \usage{
-get_transform_geomac(fpath, exp_orig_colnames, new_colnames)
+get_transform_geomac(
+  fpath,
+  exp_orig_colnames,
+  new_colnames,
+  target_srid = 4326
+)
 }
 \arguments{
 \item{fpath}{(character) : The path to the shapefile we want to transform}
 
-\item{new_colnames}{(character) : New list of colnames we want to set for
-our transformed output shapefile. If \code{NULL} the column names will get
+\item{new_colnames}{(character) : New list of colnames we want to set for our
+transformed output shapefile. If \code{NULL} the column names will get
 converted to lower case and spaces replaced by underscores via the
 \code{janitor} package}
+
+\item{target_srid}{(numeric): Transform the geometries into this coordinate
+system, specified by SRID (default: 4326, GPS latitude/longitude)}
 }
 \value{
 (sf object) : transformed shapefile

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download full data and metadata information for NOOA GHCN data — nooa_ghcn_metadata • backburner</title>
+<title>Setup the global variables for NOAA SWDI data — noaa_swdi_setup_variables • backburner</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 
 
 
-<meta property="og:title" content="Download full data and metadata information for NOOA GHCN data — nooa_ghcn_metadata" />
+<meta property="og:title" content="Setup the global variables for NOAA SWDI data — noaa_swdi_setup_variables" />
 
-<meta property="og:description" content="Download full data and metadata information for NOOA GHCN data" />
+<meta property="og:description" content="Setup the global variables for NOAA SWDI data" />
 
 
 
@@ -126,25 +126,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download full data and metadata information for NOOA GHCN data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/ghcn-extract.R'><code>R/ghcn-extract.R</code></a></small>
-    <div class="hidden name"><code>nooa_ghcn_metadata.Rd</code></div>
+    <h1>Setup the global variables for NOAA SWDI data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/swdi-extract.R'><code>R/swdi-extract.R</code></a></small>
+    <div class="hidden name"><code>noaa_swdi_setup_variables.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Download full data and metadata information for NOOA GHCN data</p>
+    <p>Setup the global variables for NOAA SWDI data</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>nooa_ghcn_metadata</span>(<span class='no'>noaa_urls</span>)</pre>
+    <pre class="usage"><span class='fu'>noaa_swdi_setup_variables</span>(
+  <span class='kw'>dat_flag</span> <span class='kw'>=</span> <span class='st'>"noaa_swdi"</span>,
+  <span class='kw'>data_dl_method</span> <span class='kw'>=</span> <span class='st'>"libcurl"</span>,
+  <span class='kw'>metadata_dirname</span> <span class='kw'>=</span> <span class='st'>"metadata"</span>,
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>noaa_urls</th>
-      <td><p>(tibble) : NOOA GHCN URLs tibble</p></td>
+      <th>dat_flag</th>
+      <td><p>(character) : "noaa_swdi" (default) name of the data -
+will appear as data folder name when data are
+saved</p></td>
+    </tr>
+    <tr>
+      <th>data_dl_method</th>
+      <td><p>(character) : "libcurl" (default) data download method</p></td>
+    </tr>
+    <tr>
+      <th>metadata_dirname</th>
+      <td><p>(character) : "metadata" (default) metadata
+folder name</p></td>
+    </tr>
+    <tr>
+      <th>url</th>
+      <td><p>(character) : NULL (default) data url - the default one is encoded
+in the function body</p></td>
     </tr>
     </table>
     
