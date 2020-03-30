@@ -148,15 +148,17 @@ get_mtbs_mtda_paths <- function(dl_date, mtbs_type, ds_source = "mtbs"){
 #' Transform the MTBS file
 #'
 #' @param fpath (character) : The path to the shapefile we want to transform
-#' @param new_colnames (character) : New list of colnames we want to set for
-#' our transformed output shapefile. If \code{NULL} the column names will get
-#' converted to lower case and spaces replaced by underscores via the
-#' \code{janitor} package
+#' @param new_colnames (character) : New list of colnames we want to set for our
+#'     transformed output shapefile. If \code{NULL} the column names will get
+#'     converted to lower case and spaces replaced by underscores via the
+#'     \code{janitor} package
+#' @param target_srid (numeric): Transform the geometries into this coordinate
+#'     system, specified by SRID (default: 4326, GPS latitude/longitude)
 #'
 #' @return (sf object) : transformed shapefile
 #' @export
-get_transform_mtbs <- function(fpath, exp_orig_colnames, new_colnames){
-    shp_df <- sf::read_sf(fpath)
+get_transform_mtbs <- function(fpath, exp_orig_colnames, new_colnames, target_srid = 4326) {
+    shp_df <- sf::read_sf(fpath) %>% sf::st_transform(target_srid)
     readin_colnames <- base::colnames(x = shp_df)
 
     # Check if the colnames that we read in from the required dataframe
