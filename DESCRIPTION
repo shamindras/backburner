@@ -36,6 +36,7 @@ Imports:
     sf,
     stringr,
     dplyr,
-    vroom
+    vroom,
+    tigris
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0

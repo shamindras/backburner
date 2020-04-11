@@ -153,3 +153,23 @@ get_subset_cols <- function(inp_df_list, sel_cols){
                                       sel_cols = sel_cols))
     base::return(out_df_list)
 }
+
+#' Transform \code{sp} shapefile to an \code{sf} shapefile object with
+#' a given \code{crs} coordinate reference system. The column names are
+#' converted to lowercase and non-trailing spaces replaced with underscores
+#' via the \code{janitor::clean_names} function
+#'
+#' @param sp (sp) : The spatial polygon \code{sp} object which you want to
+#' transform into an \code{sf} object
+#' @param crs (sf) : The Coordinate Reference System (CRS) system with
+#' default value of 4326
+#'
+#' @return (sf) : The \code{sf} converted object
+#' @export
+sp_transform_sf <- function(sp, crs = 4326){
+    out_sf <- sp %>%
+                sf::st_as_sf(x = .) %>%
+                sf::st_transform(x = ., crs = crs) %>%
+                janitor::clean_names(dat = .)
+    base::return(out_sf)
+}
