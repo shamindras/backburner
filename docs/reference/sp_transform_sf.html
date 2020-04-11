@@ -6,7 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extracting information on the download URLs for MTBS functions — mtbs_read_data • backburner</title>
+<title>Transform <code>sp</code> shapefile to an <code>sf</code> shapefile object with
+a given <code>crs</code> coordinate reference system. The column names are
+converted to lowercase and non-trailing spaces replaced with underscores
+via the <code>janitor::clean_names</code> function — sp_transform_sf • backburner</title>
 
 
 <!-- jquery -->
@@ -35,8 +38,14 @@
 
 
 
-<meta property="og:title" content="Extracting information on the download URLs for MTBS functions — mtbs_read_data" />
-<meta property="og:description" content="Extracting information on the download URLs for MTBS functions" />
+<meta property="og:title" content="Transform <code>sp</code> shapefile to an <code>sf</code> shapefile object with
+a given <code>crs</code> coordinate reference system. The column names are
+converted to lowercase and non-trailing spaces replaced with underscores
+via the <code>janitor::clean_names</code> function — sp_transform_sf" />
+<meta property="og:description" content="Transform sp shapefile to an sf shapefile object with
+a given crs coordinate reference system. The column names are
+converted to lowercase and non-trailing spaces replaced with underscores
+via the janitor::clean_names function" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,23 +132,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extracting information on the download URLs for MTBS functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/mtbs-extract.R'><code>R/mtbs-extract.R</code></a></small>
-    <div class="hidden name"><code>mtbs_read_data.Rd</code></div>
+    <h1>Transform <code>sp</code> shapefile to an <code>sf</code> shapefile object with
+a given <code>crs</code> coordinate reference system. The column names are
+converted to lowercase and non-trailing spaces replaced with underscores
+via the <code>janitor::clean_names</code> function</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/etl-utils.R'><code>R/etl-utils.R</code></a></small>
+    <div class="hidden name"><code>sp_transform_sf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extracting information on the download URLs for MTBS functions</p>
+    <p>Transform <code>sp</code> shapefile to an <code>sf</code> shapefile object with
+a given <code>crs</code> coordinate reference system. The column names are
+converted to lowercase and non-trailing spaces replaced with underscores
+via the <code><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>janitor::clean_names</a></code> function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mtbs_read_data</span>()</pre>
+    <pre class="usage"><span class='fu'>sp_transform_sf</span>(<span class='no'>sp</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>sp</th>
+      <td><p>(sp) : The spatial polygon <code>sp</code> object which you want to
+transform into an <code>sf</code> object</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>(sf) : The Coordinate Reference System (CRS) system with
+default value of 4326</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>(sf) : The <code>sf</code> converted object</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>
