@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transform the MTBS file — get_transform_mtbs • backburner</title>
+<title>Extracts the TIGER/Line Files and Shapefiles for US States, US Counties,
+and US military lines for a given year, and resolution, in preparation
+for transform purposes — tigris_extract • backburner</title>
 
 
 <!-- jquery -->
@@ -39,8 +41,12 @@
 
 
 
-<meta property="og:title" content="Transform the MTBS file — get_transform_mtbs" />
-<meta property="og:description" content="Transform the MTBS file" />
+<meta property="og:title" content="Extracts the TIGER/Line Files and Shapefiles for US States, US Counties,
+and US military lines for a given year, and resolution, in preparation
+for transform purposes — tigris_extract" />
+<meta property="og:description" content="Extracts the TIGER/Line Files and Shapefiles for US States, US Counties,
+and US military lines for a given year, and resolution, in preparation
+for transform purposes" />
 
 
 
@@ -126,42 +132,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Transform the MTBS file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/mtbs-transform.R'><code>R/mtbs-transform.R</code></a></small>
-    <div class="hidden name"><code>get_transform_mtbs.Rd</code></div>
+    <h1>Extracts the TIGER/Line Files and Shapefiles for US States, US Counties,
+and US military lines for a given year, and resolution, in preparation
+for transform purposes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/tigris-extract.R'><code>R/tigris-extract.R</code></a></small>
+    <div class="hidden name"><code>tigris_extract.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Transform the MTBS file</p>
+    <p>Extracts the TIGER/Line Files and Shapefiles for US States, US Counties,
+and US military lines for a given year, and resolution, in preparation
+for transform purposes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_transform_mtbs</span>(<span class='no'>fpath</span>, <span class='no'>exp_orig_colnames</span>, <span class='no'>new_colnames</span>, <span class='kw'>target_srid</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
+    <pre class="usage"><span class='fu'>tigris_extract</span>(<span class='kw'>tig_res</span> <span class='kw'>=</span> <span class='st'>"5m"</span>, <span class='kw'>tig_year</span> <span class='kw'>=</span> <span class='fl'>2019</span>, <span class='kw'>tig_cb</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tig_crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fpath</th>
-      <td><p>(character) : The path to the shapefile we want to transform</p></td>
+      <th>tig_res</th>
+      <td><p>(character) : The resolution of the cartographic boundary
+file (if <code>cb == TRUE</code>). Defaults to '500k'; options include
+'5m' (1:5 million) and '20m' (1:20 million). Default is '5m'</p></td>
     </tr>
     <tr>
-      <th>new_colnames</th>
-      <td><p>(character) : New list of colnames we want to set for our
-transformed output shapefile. If <code>NULL</code> the column names will get
-converted to lower case and spaces replaced by underscores via the
-<code>janitor</code> package</p></td>
+      <th>tig_year</th>
+      <td><p>(integer) : The year for which you want to download the</p></td>
     </tr>
     <tr>
-      <th>target_srid</th>
-      <td><p>(numeric): Transform the geometries into this coordinate
-system, specified by SRID (default: 4326, GPS latitude/longitude)</p></td>
+      <th>tig_cb</th>
+      <td><p>(logical) : If cb is set to <code>TRUE</code>, download a
+generalized (1:500k) states file. Defaults to <code>FALSE</code> (the most
+detailed TIGER/Line file)</p></td>
+    </tr>
+    <tr>
+      <th>tig_crs</th>
+      <td><p>(integer) : The Coordinate Reference System (CRS) system with
+default value of 4326</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(sf object) : transformed shapefile</p>
+    <p>(list) : A list of shapefiles with cleaned up column names for
+US States, US Counties, and US military lines for a given year, and
+resolution, with cleaned column names, ready for modeling transformations.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>tigris_out</span> <span class='kw'>&lt;-</span> <span class='fu'>tigris_extract</span>(<span class='kw'>tig_res</span> <span class='kw'>=</span> <span class='st'>'5m'</span>, <span class='kw'>tig_year</span> <span class='kw'>=</span> <span class='fl'>2019</span>,
+                            <span class='kw'>tig_cb</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>tig_crs</span> <span class='kw'>=</span> <span class='fl'>4326</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
