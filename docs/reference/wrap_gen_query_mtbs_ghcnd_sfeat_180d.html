@@ -6,8 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set Shapefile column names given dictionary names fetched from .xlsx
-data dictionary file. — get_geomac_new_cnames • backburner</title>
+<title>Wrapper function to generate a single combined or separate <code>SQL</code> files
+for individual feature GHCN-D lagged aggregated time summaries mapped to
+individual MTBS fires by specified spatial degrees over a 180 day lag period
+for each fire — wrap_gen_query_mtbs_ghcnd_sfeat_180d • backburner</title>
 
 
 <!-- jquery -->
@@ -40,10 +42,14 @@ data dictionary file. — get_geomac_new_cnames • backburner</title>
 
 
 
-<meta property="og:title" content="Set Shapefile column names given dictionary names fetched from .xlsx
-data dictionary file. — get_geomac_new_cnames" />
-<meta property="og:description" content="Set Shapefile column names given dictionary names fetched from .xlsx
-data dictionary file." />
+<meta property="og:title" content="Wrapper function to generate a single combined or separate <code>SQL</code> files
+for individual feature GHCN-D lagged aggregated time summaries mapped to
+individual MTBS fires by specified spatial degrees over a 180 day lag period
+for each fire — wrap_gen_query_mtbs_ghcnd_sfeat_180d" />
+<meta property="og:description" content="Wrapper function to generate a single combined or separate SQL files
+for individual feature GHCN-D lagged aggregated time summaries mapped to
+individual MTBS fires by specified spatial degrees over a 180 day lag period
+for each fire" />
 
 
 
@@ -129,61 +135,91 @@ data dictionary file." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set Shapefile column names given dictionary names fetched from .xlsx
-data dictionary file.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/geomac-transform.R'><code>R/geomac-transform.R</code></a></small>
-    <div class="hidden name"><code>get_geomac_new_cnames.Rd</code></div>
+    <h1>Wrapper function to generate a single combined or separate <code>SQL</code> files
+for individual feature GHCN-D lagged aggregated time summaries mapped to
+individual MTBS fires by specified spatial degrees over a 180 day lag period
+for each fire</h1>
+    <small class="dont-index">Source: <a href='https://github.com/shamindras/backburner/blob/master/R/mtbs-180d-sql-qry-utils.R'><code>R/mtbs-180d-sql-qry-utils.R</code></a></small>
+    <div class="hidden name"><code>wrap_gen_query_mtbs_ghcnd_sfeat_180d.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set Shapefile column names given dictionary names fetched from .xlsx
-data dictionary file.</p>
+    <p>Wrapper function to generate a single combined or separate <code>SQL</code> files
+for individual feature GHCN-D lagged aggregated time summaries mapped to
+individual MTBS fires by specified spatial degrees over a 180 day lag period
+for each fire</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_geomac_new_cnames</span>(
-  <span class='no'>fpath</span>,
-  <span class='no'>year</span>,
-  <span class='no'>ddict_type</span>,
-  <span class='no'>ddict_xlsx_path</span>,
-  <span class='no'>cols_rng</span>,
-  <span class='kw'>target_srid</span> <span class='kw'>=</span> <span class='fl'>4326</span>
+    <pre class="usage"><span class='fu'>wrap_gen_query_mtbs_ghcnd_sfeat_180d</span>(
+  <span class='kw'>mtbs_start_date</span> <span class='kw'>=</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
+  <span class='kw'>max_lag_mtbs_days</span> <span class='kw'>=</span> <span class='fl'>180</span>,
+  <span class='kw'>spat_deg_rad</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>summary_type</span> <span class='kw'>=</span> <span class='st'>"AVG"</span>,
+  <span class='no'>sfeat_types</span>,
+  <span class='no'>out_qry_dir</span>,
+  <span class='kw'>ind_comb_qry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>fpath</th>
-      <td><p>: shapefile path</p></td>
+      <th>mtbs_start_date</th>
+      <td><p>(date) : The minimum date to filter MTBS fire data, we
+will i.e. dataset will only contain MTBS fires after this date</p></td>
     </tr>
     <tr>
-      <th>year</th>
-      <td><p>: year the shapefile is referred to</p></td>
+      <th>max_lag_mtbs_days</th>
+      <td><p>(integer) : The number of days for GHCN-D weather
+data to lag behind the <code>mtbs_start_date</code></p></td>
     </tr>
     <tr>
-      <th>ddict_type</th>
-      <td><p>: dictionary type - this needs to be corresponding to one
-of the data dictionaries retrieved in the .xlsx</p></td>
+      <th>spat_deg_rad</th>
+      <td><p>(double) : The spatial degree radius to consider around
+each fire when joining weather data (default value is 0.5)</p></td>
     </tr>
     <tr>
-      <th>ddict_xlsx_path</th>
-      <td><p>: path of the data dictionary .xlsx</p></td>
+      <th>summary_type</th>
+      <td><p>(character) : The <code>SQL</code> summary function to apply
+to the GHCN-D weather data e.g. "AVG", "MEDIAN" (default value is "AVG")</p></td>
     </tr>
     <tr>
-      <th>cols_rng</th>
-      <td><p>: column ranges to extract from the .xlsx</p></td>
+      <th>sfeat_types</th>
+      <td><p>(character) : The GHCN-D features to summarize for each given
+fire. Aggregated and lagged versions of each feature are produced e.g.
+<code><a href='https://rdrr.io/r/base/c.html'>c("TOBS", "TMIN")</a></code> for generating the code for 2 features</p></td>
     </tr>
     <tr>
-      <th>target_srid</th>
-      <td><p>(numeric): Transform the geometries into this coordinate
-system, specified by SRID (default: 4326, GPS latitude/longitude)</p></td>
+      <th>out_qry_dir</th>
+      <td><p>(character) : The directory to save the query. A full
+file path will be generated as part of the output</p></td>
+    </tr>
+    <tr>
+      <th>ind_comb_qry</th>
+      <td><p>(logical) : If <code>TRUE</code> then produces a single
+combined <code>sql</code> query for all features combined. If <code>FALSE</code>
+then produces a separate <code>sql</code> queries for individual GHCN-D feature</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Shapefile dataframe</p>
+    <p>(tibble) : A single or separate <code>SQL</code> files for single
+GHCN features joined to MTBS fire_ids by specified spatial and temporal
+parameters</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"tidyverse"</span>)
+<span class='fu'>wrap_gen_query_mtbs_ghcnd_sfeat_180d</span>(<span class='kw'>mtbs_start_date</span> <span class='kw'>=</span>
+                                         <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
+                                     <span class='kw'>max_lag_mtbs_days</span> <span class='kw'>=</span> <span class='fl'>180</span>,
+                                     <span class='kw'>spat_deg_rad</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+                                     <span class='kw'>summary_type</span> <span class='kw'>=</span> <span class='st'>"AVG"</span>,
+                                     <span class='kw'>sfeat_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TOBS"</span>, <span class='st'>"TMIN"</span>, <span class='st'>"TMAX"</span>),
+                                     <span class='kw'>out_qry_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+                                     <span class='kw'>ind_comb_qry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
