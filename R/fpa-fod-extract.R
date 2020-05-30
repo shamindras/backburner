@@ -39,12 +39,22 @@ fpa_read_data <- function(){
         lubridate::as_datetime(x = .)
 
     # Extract sizes of files by parsing individually
+    # We need to get the zip filenames separately, since they are in a
+    # "hidden id" field in the html
+    fpa_fod_fire_sz_fnames <- fpa_fod_fire_html %>%
+                                rvest::html_nodes("em") %>%
+                                rvest::html_nodes("div") %>%
+                                rvest::html_attr("id") %>%
+                                tibble::enframe(x = ., value = "fname_src")
+
     fpa_fod_fire_sz <- fpa_fod_fire_html %>%
         rvest::html_nodes("em") %>%
         rvest::html_text() %>%
         tibble::enframe(x = ., value = "size_text") %>%
         dplyr::slice(.data = ., -1) %>%
         dplyr::select(size_text) %>%
+        # Bind the filenames separately
+        dplyr::bind_cols(fpa_fod_fire_sz_fnames) %>%
         dplyr::mutate(.data = .,
                       # The size for these files is in MB
                       size_mb =
@@ -55,7 +65,7 @@ fpa_read_data <- function(){
                       ind_zip =
                           base::as.integer(
                               stringr::str_detect(
-                                  string = size_text,
+                                  string = fname_src, # Check zip name from source
                                   pattern = stringr::fixed(
                                       pattern = "zip",
                                       ignore_case = TRUE))))
@@ -68,18 +78,21 @@ fpa_read_data <- function(){
         dplyr::select(-name) %>%
         dplyr::filter(.data = .,
                       stringr::str_detect(string = value,
-                                          pattern = "fedora")) %>%
+                                          pattern = "RDS-2013-0009.4[:graph:]+\\.zip")) %>%
         dplyr::bind_cols(fpa_fod_fire_sz) %>%
         dplyr::rename(furl = value) %>%
-        dplyr::mutate(furl = stringr::str_c("https:", furl),
-                      fname = base::dirname(furl) %>%
-                          base::basename(path = .) %>%
-                          stringr::str_c(.,
-                                         dplyr::if_else(
-                                             base::as.logical(ind_zip),
-                                             ".zip",
-                                             ".html"),
-                                         sep = ""),
+        dplyr::mutate(furl = stringr::str_c("https://www.fs.usda.gov", furl),
+                      fname = stringr::str_replace(string = fname_src,
+                                                   pattern = "checksum_",
+                                                   replacement = ""),
+                      # fname = base::dirname(furl) %>%
+                      #     base::basename(path = .) %>%
+                      #     stringr::str_c(.,
+                      #                    dplyr::if_else(
+                      #                        base::as.logical(ind_zip),
+                      #                        ".zip",
+                      #                        ".html"),
+                      #                    sep = ""),
                       ind_gdb =
                           ind_re_match(string = fname,
                                        pattern = RE_PTRN_GDB),
@@ -92,32 +105,6 @@ fpa_read_data <- function(){
                       dl_date = dl_date,
                       dl_sysname = dl_sysname,
                       dat_src_flag = DAT_SRC_FLAG)
-
-
-    # We need to add this row in for the fpa_fod shapefile manually
-    # It comes from a different USDA arcgis based source altogether
-    # and is a single file, so just add it in rather than parse this
-    # complicated webpage
-    fpa_fod_shpfile_urls <-
-        tibble::tibble(furl = "https://data.fs.usda.gov/geodata/edw/edw_resources/shp/S_USA.FPA_FOD_4thedition.zip",
-                       size_text = NA,
-                       size_mb = NA,
-                       ind_zip = 1L,
-                       fname = "S_USA.FPA_FOD_4thedition.zip",
-                       ind_gdb = 0L,
-                       ind_mtda = 0L,
-                       # This is the manually added shapefile url of the data we are
-                       # adding. We give it the indicator value 1
-                       ind_shp = 1L,
-                       mod_datetime = mod_datetime,
-                       dl_datetime = dl_datetime,
-                       dl_date = dl_date,
-                       dl_sysname = dl_sysname,
-                       dat_src_flag = DAT_SRC_FLAG)
-
-    # Append the shapefile URL to URLs for other FPA_FOD formats
-    fpa_fod_urls <- fpa_fod_urls %>%
-        dplyr::bind_rows(fpa_fod_shpfile_urls)
 
     return(fpa_fod_urls)
 }
