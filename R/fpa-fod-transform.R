@@ -149,7 +149,6 @@ fpa_transform <- function(dl_date,
     print(out_mtda_fpaths)
 
     outdir_mtda_yr_out <- get_transform_fpa(fpath = out_mtda_fpaths)
-    names(outdir_mtda_yr_out) <- glue::glue("{ds_source}_{stringr::str_to_lower(string = fpa_fod_type)}")
 
     return(outdir_mtda_yr_out)
 }
