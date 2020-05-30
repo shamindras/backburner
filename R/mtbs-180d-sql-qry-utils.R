@@ -58,6 +58,11 @@ gen_query_mtbs_ghcnd_sfeat_180d <- function(mtbs_start_date = base::as.Date("200
                                "t{max_lag_mtbs_days}",
                                .sep = "_")
 
+    # Query name should be separated by "-" instead of underscores
+    out_qry_name <- stringr::str_replace_all(string = out_tbl_name,
+                                             pattern = "_",
+                                             replacement = "-")
+
     # Input validation ---------------------------------------------------------
     assertthat::assert_that(stringr::str_length(string = spat_deg_rad_str) == 3,
                             msg = glue::glue("spat_deg_rad must be of char length 3 e.g. 0.5 or 1.0,
@@ -84,7 +89,7 @@ gen_query_mtbs_ghcnd_sfeat_180d <- function(mtbs_start_date = base::as.Date("200
                                          it is currently {out_qry_dir}"))
 
     out_qry_path <- fs::path_join(parts = c(out_qry_dir,
-                                            glue::glue("{out_tbl_name}.sql")))
+                                            glue::glue("{out_qry_name}.sql")))
 
     out_qry_str <-
         glue::glue(
@@ -209,7 +214,7 @@ wrap_gen_query_mtbs_ghcnd_sfeat_180d <- function(mtbs_start_date =
                                                       "{summary_type_lowcase}",
                                                       "s{spat_deg_rad_str_nums}",
                                                       "t{max_lag_mtbs_days}",
-                                                      .sep = "_"),
+                                                      .sep = "-"),
                                            ".sql")
         out_gen_qry_name
         out_gen_qry_path <- fs::path_join(parts = c(out_qry_dir, out_gen_qry_name))
@@ -306,6 +311,11 @@ gen_query_mtbs_swdi_sfeat_180d <- function(mtbs_start_date = base::as.Date("2000
                              "t{max_lag_mtbs_days}",
                              .sep = "_")
 
+  # Query name should be separated by "-" instead of underscores
+  out_qry_name <- stringr::str_replace_all(string = out_tbl_name,
+                                           pattern = "_",
+                                           replacement = "-")
+
   # Input validation ---------------------------------------------------------
   assertthat::assert_that(stringr::str_length(string = spat_deg_rad_str) == 3,
                           msg = glue::glue("spat_deg_rad must be of char length 3 e.g. 0.5 or 1.0,
@@ -329,7 +339,7 @@ gen_query_mtbs_swdi_sfeat_180d <- function(mtbs_start_date = base::as.Date("2000
                                          it is currently {out_qry_dir}"))
 
   out_qry_path <- fs::path_join(parts = c(out_qry_dir,
-                                          glue::glue("{out_tbl_name}.sql")))
+                                          glue::glue("{out_qry_name}.sql")))
 
   out_qry_str <-
     glue::glue(
@@ -457,7 +467,7 @@ wrap_gen_query_mtbs_swdi_sfeat_180d <- function(mtbs_start_date =
                                                   "{summary_type_lowcase}",
                                                   "s{spat_deg_rad_str_nums}",
                                                   "t{max_lag_mtbs_days}",
-                                                  .sep = "_"),
+                                                  .sep = "-"),
                                        ".sql")
     out_gen_qry_name
     out_gen_qry_path <- fs::path_join(parts = c(out_qry_dir, out_gen_qry_name))
@@ -490,4 +500,150 @@ wrap_gen_query_mtbs_swdi_sfeat_180d <- function(mtbs_start_date =
       dplyr::rowwise(data = .) %>%
       purrr::pwalk(.l = ., .f = ~readr::write_lines(x = .x, path = .y))
   }
+}
+
+
+#' Generate single feature MTBS and GHCN/SWDI full feature joined
+#' lagged aggregated time summaries mapped to individual MTBS fires by
+#' specified spatial degrees over a 180 day lag period for each fire
+#'
+#' @param mtbs_start_date (date) : The minimum date to filter MTBS fire data, we
+#' will i.e. dataset will only contain MTBS fires after this date
+#' @param max_lag_mtbs_days (integer) : The number of days for NOAA SWDI weather
+#' data to lag behind the \code{mtbs_start_date}
+#' @param spat_deg_rad (double) : The spatial degree radius to consider around
+#' each fire when joining weather data (default value is 0.5)
+#' @param summary_type (character) : The \code{SQL} summary function to apply
+#' to the GHCN-D weather data e.g. "AVG", "MEDIAN" (default value is "AVG")
+#' @param sfeat (character) : The NOAA SWDI feature to summarize for each given
+#' fire. Aggregated and lagged versions of each feature are produced e.g.
+#' \code{"nldn", "structure", "hail", "tvs"}
+#' @param out_qry_dir (character) : The directory to save the query. A full
+#' file path will be generated as part of the output
+#'
+#' @return (tibble) : A \code{tibble} with the query string, file path to store
+#' the query, and a check of whether the filepath exists
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' library("tidyverse")
+#' gen_query_mtbs_swdi_sfeat_180d(mtbs_start_date = base::as.Date("2000-01-01"),
+#'                                max_lag_mtbs_days = 180,
+#'                                spat_deg_rad = 0.5,
+#'                                summary_type = "AVG",
+#'                                sfeat = "nldn",
+#'                                out_qry_dir = ".")
+#' }
+gen_query_mtbs_full_feat_180d <- function(mtbs_start_date =
+                                            base::as.Date("2000-01-01"),
+                                           max_lag_mtbs_days = 180,
+                                           spat_deg_rad = 0.5,
+                                           summary_type = "AVG",
+                                           sfeat,
+                                           out_qry_dir){
+
+  # Key transformations for building query string ----------------------------
+  # Feature type
+  sfeat_lowcase <- stringr::str_to_lower(string = sfeat)
+
+  # Spatial Degrees
+  spat_deg_rad_str <- base::format(base::round(spat_deg_rad, 2), nsmall = 1)
+  spat_deg_rad_str_nums <- stringr::str_replace(string = spat_deg_rad_str,
+                                                pattern = "\\.",
+                                                replacement = "")
+
+  # SQL Summar Type e.g. AVG
+  summary_type_lowcase <- stringr::str_to_lower(string = summary_type)
+
+  # Our SQL table name i.e. mtbs_ghcnd_tobs_s05_t180
+  # for TOBS feature, 0.5 spatial degrees, 180 days
+  out_tbl_name <- glue::glue("mtbs",
+                             "full_feature_join",
+                             "{summary_type_lowcase}",
+                             "s{spat_deg_rad_str_nums}",
+                             "t{max_lag_mtbs_days}",
+                             .sep = "_")
+
+  # Query name should be separated by "-" instead of underscores
+  out_qry_name <- stringr::str_replace_all(string = out_tbl_name,
+                                           pattern = "_",
+                                           replacement = "-")
+
+  # Input validation ---------------------------------------------------------
+  assertthat::assert_that(stringr::str_length(string = spat_deg_rad_str) == 3,
+                          msg = glue::glue("spat_deg_rad must be of char length 3 e.g. 0.5 or 1.0,
+                                         it is currently {spat_deg_rad}"))
+  assertthat::assert_that(stringr::str_detect(string = spat_deg_rad_str,
+                                              pattern = "\\d\\.\\d"),
+                          msg = glue::glue("spat_deg_rad  must be 1 dec. pl. e.g. 0.5 or 1.0,
+                                         it is currently {spat_deg_rad}"))
+  assertthat::assert_that(max_lag_mtbs_days >= 180,
+                          msg = glue::glue("max_lag_mtbs_days must be >= 180,
+                                         it is currently {max_lag_mtbs_days}"))
+  assertthat::assert_that(mtbs_start_date <= base::as.Date("2000-01-01"),
+                          msg = glue::glue("mtbs_start_date must be before {base::as.Date('2000-01-01')},
+                                         it is currently {mtbs_start_date}"))
+  assertthat::assert_that(summary_type == stringr::str_to_upper(string = summary_type),
+                          msg = glue::glue("summary_type must be in upper case,
+                                         it is currently {summary_type}"))
+  assertthat::assert_that(base::is.character(x = out_qry_dir) &&
+                            fs::dir_exists(path = out_qry_dir),
+                          msg = glue::glue("out_qry_dir must be a valid path,
+                                         it is currently {out_qry_dir}"))
+
+  out_qry_path <- fs::path_join(parts = c(out_qry_dir,
+                                          glue::glue("{out_qry_name}.sql")))
+
+  out_qry_str <-
+    glue::glue(
+      "/* Start query to create {out_tbl_name} ---------------------------------*/
+DROP TABLE IF EXISTS {out_tbl_name};
+
+CREATE TABLE {out_tbl_name} AS
+(SELECT mtbsf.fire_id,
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '3'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't3d', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '7'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't1w', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '14'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't2w', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '21'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't3w', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '30'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't1m', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '60'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't2m', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '90'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't3m', .sep = '_'))},
+    {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN mtbsf.fire_start_date::date - integer '180'
+                                                      AND mtbsf.fire_start_date::date - integer '1') AS {glue::double_quote(
+                                                      glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't6m', .sep = '_'))}
+FROM (SELECT mpfb.fire_id,
+             mpfb.fire_start_date,
+             mpfb.fire_centroid
+      FROM mtbs_perims_fod_pts_base as mpfb
+      WHERE mpfb.fire_start_date::date >= {glue::single_quote(
+      format(mtbs_start_date, '%d-%m-%Y'))}::date) AS mtbsf
+LEFT JOIN noaa_swdi_{sfeat} AS {sfeat}
+    ON ({sfeat}.record_dt BETWEEN (mtbsf.fire_start_date::date - integer {glue::single_quote(max_lag_mtbs_days)})
+                           AND (mtbsf.fire_start_date::date - integer '1')
+        AND ST_DWithin(mtbsf.fire_centroid, {sfeat}.geometry, {spat_deg_rad}))
+GROUP BY mtbsf.fire_id);
+
+/* Index this table on fire_id for the final LEFT JOIN of all features*/
+CREATE INDEX {out_tbl_name}_fire_id ON {out_tbl_name} USING HASH (fire_id);
+
+/* End query to create {out_tbl_name} ----------------------------------*/")
+
+  out_val <- tibble::tibble(qry_str = out_qry_str, qry_path = out_qry_path)
+
+  base::return(out_val)
 }
