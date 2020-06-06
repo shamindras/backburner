@@ -210,13 +210,13 @@ wrap_gen_query_mtbs_ghcnd_sfeat_180d <- function(mtbs_start_date =
 
         # Our SQL table name i.e. mtbs_ghcnd_tobs_s05_t180
         # for TOBS feature, 0.5 spatial degrees, 180 days
-        out_gen_qry_name <- stringr::str_c(glue::glue("mtbs_ghcnd",
+        out_gen_qry_name <- stringr::str_c(glue::glue("mtbs-ghcnd",
                                                       "{summary_type_lowcase}",
                                                       "s{spat_deg_rad_str_nums}",
                                                       "t{max_lag_mtbs_days}",
                                                       .sep = "-"),
                                            ".sql")
-        out_gen_qry_name
+
         out_gen_qry_path <- fs::path_join(parts = c(out_qry_dir, out_gen_qry_name))
         out_gen_qry_path
 
@@ -469,7 +469,7 @@ wrap_gen_query_mtbs_swdi_sfeat_180d <- function(mtbs_start_date =
                                                   "t{max_lag_mtbs_days}",
                                                   .sep = "-"),
                                        ".sql")
-    out_gen_qry_name
+
     out_gen_qry_path <- fs::path_join(parts = c(out_qry_dir, out_gen_qry_name))
     print(out_gen_qry_path)
 
