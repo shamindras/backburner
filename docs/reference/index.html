@@ -204,6 +204,21 @@ data and metadata and download the data.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="fpa_transform.html">fpa_transform()</a></code> </p>
+        </td>
+        <td><p>Wrapper for FPA FOD transformation pipeline.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gen_query_mtbs_full_feat_180d.html">gen_query_mtbs_full_feat_180d()</a></code> </p>
+        </td>
+        <td><p>Generate all fire features joined in the mtbs table for modeling the ground
+process and fire size. This joins all of the lagged aggregated time summaries
+mapped to individual MTBS fires by specified spatial degrees over a 180 day
+lag period for each fire</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="gen_query_mtbs_ghcnd_sfeat_180d.html">gen_query_mtbs_ghcnd_sfeat_180d()</a></code> </p>
         </td>
         <td><p>Generate single feature GHCN-D lagged aggregated time summaries mapped to
@@ -289,6 +304,12 @@ This is used in the <code>geomac</code> and <code>mtbs</code> load code</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="get_fpa_mtda_paths.html">get_fpa_mtda_paths()</a></code> </p>
+        </td>
+        <td><p>Provides a helper dataframe to list all of the extracted FPA FOD files</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_geomac_mtda_paths.html">get_geomac_mtda_paths()</a></code> </p>
         </td>
         <td><p>Provides a helper dataframe to list all of the files extracted for geomac
@@ -355,6 +376,12 @@ This is used in the <code>geomac</code> and <code>mtbs</code> load code</p></td>
         </td>
         <td><p>Selects the specified columns from a list of input data frames.
 This is used in the <code>geomac</code> and <code>mtbs</code> load code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_transform_fpa.html">get_transform_fpa()</a></code> </p>
+        </td>
+        <td><p>Transform the FPA FOD fires file</p></td>
       </tr><tr>
         
         <td>
@@ -619,6 +646,16 @@ for transform purposes</p></td>
         <td><p>Transforms the TIGER/Line Files and Shapefiles for US States, US Counties,
 and US military lines for a given year, and resolution, in preparation
 for loading/modeling purposes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wrap_gen_query_mtbs_full_feat_180d.html">wrap_gen_query_mtbs_full_feat_180d()</a></code> </p>
+        </td>
+        <td><p>Wrapper function to generate a single combined or separate <code>SQL</code> files
+for all fire features joined in the mtbs table for modeling the ground
+process and fire size. This joins all of the lagged aggregated time summaries
+mapped to individual MTBS fires by specified spatial degrees over a 180 day
+lag period for each fire</p></td>
       </tr><tr>
         
         <td>
