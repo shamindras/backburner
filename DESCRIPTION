@@ -40,6 +40,7 @@ Imports:
     tigris,
     fs,
     glue,
-    RSQLite
+    RSQLite,
+    lubridate
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
