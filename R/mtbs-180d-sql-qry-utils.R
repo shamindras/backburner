@@ -673,7 +673,10 @@ CREATE TABLE {out_tbl_name} AS
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
-FROM mtbs_perims_fod_pts_base AS mtbs
+FROM (SELECT mpfb.*
+      FROM mtbs_perims_fod_pts_base mpfb
+      WHERE mpfb.fire_start_date::date >= {glue::single_quote(
+      format(mtbs_start_date, '%d-%m-%Y'))}::date) AS mtbs
 LEFT JOIN mtbs_ghcnd_prcp_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_mtbs_days} AS prcp
 	ON mtbs.fire_id = prcp.fire_id
 LEFT JOIN mtbs_ghcnd_snow_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_mtbs_days} AS snow
