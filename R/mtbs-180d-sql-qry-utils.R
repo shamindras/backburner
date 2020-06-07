@@ -665,14 +665,14 @@ CREATE TABLE {out_tbl_name} AS
       	tobs.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m,
       	tobs.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m,
       	tobs.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3d,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1w,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2w,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3w,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
-      	nldn.{summary_type_lowcase}_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3d,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1w,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2w,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3w,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
 FROM mtbs_perims_fod_pts_base AS mtbs
 LEFT JOIN mtbs_ghcnd_prcp_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_mtbs_days} AS prcp
 	ON mtbs.fire_id = prcp.fire_id
