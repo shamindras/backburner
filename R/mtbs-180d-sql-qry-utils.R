@@ -606,6 +606,13 @@ CREATE TABLE {out_tbl_name} AS
         mtbs.fire_type AS mtbs_fire_type,
         mtbs.fire_asmnt_type as mtbs_fire_asmnt_type,
         mtbs.fire_start_season as fire_start_season,
+        CASE
+            WHEN mtbs.fire_start_season = 'Fall' THEN 0
+            WHEN mtbs.fire_start_season = 'Spring' THEN 1
+            WHEN mtbs.fire_start_season = 'Summer' THEN 2
+            WHEN mtbs.fire_start_season = 'Winter' THEN 3
+            ELSE NULL
+        END AS fire_start_season_numeric,
         mtbs.start_day as fire_start_day,
         mtbs.start_month as fire_start_month,
         mtbs.start_year as fire_start_year,
