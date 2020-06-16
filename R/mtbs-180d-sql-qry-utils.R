@@ -125,7 +125,7 @@ CREATE TABLE {out_tbl_name} AS
 FROM (SELECT mpfb.fire_id,
              mpfb.fire_start_date,
              mpfb.fire_centroid
-      FROM mtbs_perims_fod_pts_base as mpfb
+      FROM mtbs_perims_fod_pts_base AS mpfb
       WHERE mpfb.fire_start_date::date >= {glue::single_quote(
       format(mtbs_start_date, '%d-%m-%Y'))}::date) AS mtbsf
 LEFT JOIN ghcnd_observations AS ghobs
@@ -375,7 +375,7 @@ CREATE TABLE {out_tbl_name} AS
 FROM (SELECT mpfb.fire_id,
              mpfb.fire_start_date,
              mpfb.fire_centroid
-      FROM mtbs_perims_fod_pts_base as mpfb
+      FROM mtbs_perims_fod_pts_base AS mpfb
       WHERE mpfb.fire_start_date::date >= {glue::single_quote(
       format(mtbs_start_date, '%d-%m-%Y'))}::date) AS mtbsf
 LEFT JOIN noaa_swdi_{sfeat} AS {sfeat}
@@ -602,10 +602,10 @@ CREATE TABLE {out_tbl_name} AS
       	mtbs.fire_acres_burned AS area_burned_acres,
       	ST_X(mtbs.fire_centroid)::float AS fire_longitude,
       	ST_Y(mtbs.fire_centroid)::float AS fire_latitude,
-        mtbs.fire_perimeter as fire_perimeter,
+        mtbs.fire_perimeter AS fire_perimeter,
         mtbs.fire_type AS mtbs_fire_type,
-        mtbs.fire_asmnt_type as mtbs_fire_asmnt_type,
-        mtbs.fire_start_season as fire_start_season,
+        mtbs.fire_asmnt_type AS mtbs_fire_asmnt_type,
+        mtbs.fire_start_season AS fire_start_season,
         CASE
             WHEN mtbs.fire_start_season = 'Fall' THEN 0
             WHEN mtbs.fire_start_season = 'Spring' THEN 1
@@ -613,9 +613,9 @@ CREATE TABLE {out_tbl_name} AS
             WHEN mtbs.fire_start_season = 'Winter' THEN 3
             ELSE NULL
         END AS fire_start_season_numeric,
-        mtbs.start_day as fire_start_day,
-        mtbs.start_month as fire_start_month,
-        mtbs.start_year as fire_start_year,
+        mtbs.start_day AS fire_start_day,
+        mtbs.start_month AS fire_start_month,
+        mtbs.start_year AS fire_start_year,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w,
@@ -947,30 +947,30 @@ CREATE TABLE {out_tbl_name} AS
        COALESCE(agg_data.{summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t2m,
        COALESCE(agg_data.{summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t3m,
        COALESCE(agg_data.{summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_snwd_s{spat_deg_rad_str_nums}_t6m,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3d as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3d,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1w as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1w,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2w as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2w,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3w as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3w,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1m as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1m,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2m as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2m,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3m as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3m,
-       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t6m as {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t6m,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3d as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3d,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1w as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1w,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2w as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2w,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3w as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3w,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1m as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1m,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2m as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2m,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3m as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3m,
-       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t6m as {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t6m,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3d as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3d,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1w as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1w,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2w as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2w,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3w as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3w,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1m as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1m,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m,
-       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m as {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3d,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1w,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2w,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3w,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t1m,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t2m,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t3m,
+       agg_data.{summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_tmax_s{spat_deg_rad_str_nums}_t6m,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3d,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1w,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2w,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3w,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t1m,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t2m,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t3m,
+       agg_data.{summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_tmin_s{spat_deg_rad_str_nums}_t6m,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3d,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1w,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2w,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3w,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t1m,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t2m,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t3m,
+       agg_data.{summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_tobs_s{spat_deg_rad_str_nums}_t6m,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3d, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3d,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1w, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1w,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2w, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2w,
@@ -984,6 +984,8 @@ FROM mtbs_full_feat_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_mt
 
 /* Index this table on fire_id for the final LEFT JOIN of all features*/
 CREATE INDEX {out_tbl_name}_fire_id ON {out_tbl_name} USING HASH (fire_id);
+CREATE INDEX {out_tbl_name}_perimeter ON {out_tbl_name} USING GIST (fire_perimeter);
+CREATE INDEX {out_tbl_name}_start_date ON {out_tbl_name} (fire_start_date);
 
 /* End query to create {out_tbl_name} ----------------------------------*/")
 
