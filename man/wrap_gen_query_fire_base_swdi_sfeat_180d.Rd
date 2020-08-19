@@ -14,6 +14,8 @@ wrap_gen_query_fire_base_swdi_sfeat_180d(
   summary_type = "AVG",
   sfeat_types,
   out_qry_dir,
+  out_tbl_name_pfx,
+  fire_base_tbl_name,
   ind_comb_qry = TRUE
 )
 }
@@ -63,6 +65,8 @@ wrap_gen_query_fire_base_swdi_sfeat_180d(fire_base_start_date =
                                     summary_type = "AVG",
                                     sfeat_types = c("nldn", "hail", "tvs", "structure"),
                                     out_qry_dir = ".",
+                                    out_tbl_name_pfx = "mtbs",
+                                    fire_base_tbl_name = "mtbs_base_01",
                                     ind_comb_qry = TRUE)
 }
 }

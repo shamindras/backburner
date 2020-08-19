@@ -12,7 +12,9 @@ gen_query_fire_base_full_feat_180d(
   max_lag_fire_base_days = 180,
   spat_deg_rad = 0.5,
   summary_type = "AVG",
-  out_qry_dir
+  out_qry_dir,
+  out_tbl_name_pfx,
+  fire_base_tbl_name
 )
 }
 \arguments{
@@ -48,6 +50,8 @@ gen_query_fire_base_full_feat_180d(fire_base_start_date = base::as.Date("2000-01
                                max_lag_fire_base_days = 180,
                                spat_deg_rad = 0.5,
                                summary_type = "AVG",
-                               out_qry_dir = ".")
+                               out_qry_dir = ".",
+                               out_tbl_name_pfx = "mtbs",
+                               fire_base_tbl_name = "mtbs_base_01")
 }
 }

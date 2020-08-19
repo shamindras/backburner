@@ -15,6 +15,7 @@ wrap_gen_query_fire_base_ghcnd_sfeat_180d(
   sfeat_types,
   out_qry_dir,
   out_tbl_name_pfx,
+  fire_base_tbl_name,
   ind_comb_qry = TRUE
 )
 }
@@ -40,7 +41,7 @@ file path will be generated as part of the output}
 
 \item{ind_comb_qry}{(logical) : If \code{TRUE} then produces a single
 combined \code{sql} query for all features combined. If \code{FALSE}
-then produces a separate \code{sql} queries for individual GHCN-D feature}
+then produces a separate \code{sql} queries for an individual GHCN-D feature}
 }
 \value{
 (tibble) : A single or separate \code{SQL} files for single
@@ -63,6 +64,8 @@ wrap_gen_query_fire_base_ghcnd_sfeat_180d(fire_base_start_date =
                                      summary_type = "AVG",
                                      sfeat_types = c("TOBS", "TMIN", "TMAX"),
                                      out_qry_dir = ".",
+                                     out_tbl_name_pfx = "mtbs",
+                                     fire_base_tbl_name = "mtbs_base_01",
                                      ind_comb_qry = TRUE)
 }
 }

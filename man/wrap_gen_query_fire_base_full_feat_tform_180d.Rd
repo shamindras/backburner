@@ -14,6 +14,8 @@ wrap_gen_query_fire_base_full_feat_tform_180d(
   spat_deg_rad = 0.5,
   summary_type = "AVG",
   out_qry_dir,
+  out_tbl_name_pfx,
+  fire_base_tbl_name,
   ind_comb_qry = TRUE
 )
 }
@@ -58,6 +60,8 @@ wrap_gen_query_fire_base_full_feat_tform_180d(fire_base_start_date =
                                          spat_deg_rad = 0.5,
                                          summary_type = "AVG",
                                          out_qry_dir = ".",
+                                         out_tbl_name_pfx = "mtbs",
+                                         fire_base_tbl_name = "mtbs_base_01",
                                          ind_comb_qry = TRUE)
 }
 }
