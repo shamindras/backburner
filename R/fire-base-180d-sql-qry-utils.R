@@ -964,7 +964,7 @@ CREATE TABLE {out_tbl_name} AS
 (SELECT agg_data.fire_id,
        agg_data.fire_name,
        agg_data.fire_start_date::date AS fire_start_date,
-       agg_data.fire_acres_burned,
+       agg_data.area_burned_acres AS fire_acres_burned,
        ln(agg_data.area_burned_acres) AS fire_acres_burned_log,
        agg_data.fire_longitude,
        agg_data.fire_latitude,
@@ -1032,7 +1032,7 @@ CREATE TABLE {out_tbl_name} AS
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
-FROM {fire_base_tbl_name}_full_feat_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS agg_data;
+FROM {fire_base_tbl_name}_full_feat_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS agg_data
 );
 
 /* Index this table on fire_id for the final LEFT JOIN of all features*/
