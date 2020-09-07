@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Wrapper function to generate a single combined or separate <code>SQL</code> files
+<title>Wrapper function to generate a single combined or separate SQL files
 for individual feature GHCN-D lagged aggregated time summaries mapped to
 individual MTBS fires by specified spatial degrees over a 180 day lag period
 for each fire — wrap_gen_query_mtbs_ghcnd_sfeat_180d • backburner</title>
@@ -42,7 +42,7 @@ for each fire — wrap_gen_query_mtbs_ghcnd_sfeat_180d • backburner</title>
 
 
 
-<meta property="og:title" content="Wrapper function to generate a single combined or separate <code>SQL</code> files
+<meta property="og:title" content="Wrapper function to generate a single combined or separate SQL files
 for individual feature GHCN-D lagged aggregated time summaries mapped to
 individual MTBS fires by specified spatial degrees over a 180 day lag period
 for each fire — wrap_gen_query_mtbs_ghcnd_sfeat_180d" />
@@ -151,13 +151,13 @@ for each fire</p>
     </div>
 
     <pre class="usage"><span class='fu'>wrap_gen_query_mtbs_ghcnd_sfeat_180d</span>(
-  <span class='kw'>mtbs_start_date</span> <span class='kw'>=</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
-  <span class='kw'>max_lag_mtbs_days</span> <span class='kw'>=</span> <span class='fl'>180</span>,
-  <span class='kw'>spat_deg_rad</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>summary_type</span> <span class='kw'>=</span> <span class='st'>"AVG"</span>,
-  <span class='no'>sfeat_types</span>,
-  <span class='no'>out_qry_dir</span>,
-  <span class='kw'>ind_comb_qry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  mtbs_start_date = <span class='kw'>base</span>::<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
+  max_lag_mtbs_days = <span class='fl'>180</span>,
+  spat_deg_rad = <span class='fl'>0.5</span>,
+  summary_type = <span class='st'>"AVG"</span>,
+  <span class='kw'>sfeat_types</span>,
+  <span class='kw'>out_qry_dir</span>,
+  ind_comb_qry = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -209,17 +209,18 @@ GHCN features joined to MTBS fire_ids by specified spatial and temporal
 parameters</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"tidyverse"</span>)
-<span class='fu'>wrap_gen_query_mtbs_ghcnd_sfeat_180d</span>(<span class='kw'>mtbs_start_date</span> <span class='kw'>=</span>
-                                         <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
-                                     <span class='kw'>max_lag_mtbs_days</span> <span class='kw'>=</span> <span class='fl'>180</span>,
-                                     <span class='kw'>spat_deg_rad</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-                                     <span class='kw'>summary_type</span> <span class='kw'>=</span> <span class='st'>"AVG"</span>,
-                                     <span class='kw'>sfeat_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TOBS"</span>, <span class='st'>"TMIN"</span>, <span class='st'>"TMAX"</span>),
-                                     <span class='kw'>out_qry_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>,
-                                     <span class='kw'>ind_comb_qry</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'><a href='http://tidyverse.tidyverse.org'>"tidyverse"</a></span>)
+<span class='fu'>wrap_gen_query_mtbs_ghcnd_sfeat_180d</span>(mtbs_start_date =
+                                         <span class='kw'>base</span>::<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>),
+                                     max_lag_mtbs_days = <span class='fl'>180</span>,
+                                     spat_deg_rad = <span class='fl'>0.5</span>,
+                                     summary_type = <span class='st'>"AVG"</span>,
+                                     sfeat_types = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"TOBS"</span>, <span class='st'>"TMIN"</span>, <span class='st'>"TMAX"</span>),
+                                     out_qry_dir = <span class='st'>"."</span>,
+                                     ind_comb_qry = <span class='fl'>TRUE</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -235,7 +236,7 @@ parameters</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

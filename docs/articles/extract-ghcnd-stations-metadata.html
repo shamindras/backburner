@@ -97,8 +97,10 @@
     
 <p>We can easily get nicely transformed <a href="https://docs.opendata.aws/noaa-ghcn-pds/readme.html">NOAA Global Historical Climatology Network Daily (GHCN-D) station metadata</a>. This is particularly useful for US/Canada related weather data.</p>
 <p>We can do this by simply running the following code:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">backburner</span>)
-<span class="no">ghcnd_stations</span> <span class="kw">&lt;-</span> <span class="kw pkg">backburner</span><span class="kw ns">::</span><span class="fu"><a href="../reference/get_transform_ghcnd_stations.html">get_transform_ghcnd_stations</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/shamindras/backburner">backburner</a></span>)
+<span class="kw">ghcnd_stations</span> <span class="op">&lt;-</span> <span class="kw">backburner</span>::<span class="fu"><a href="../reference/get_transform_ghcnd_stations.html">get_transform_ghcnd_stations</a></span>()
+</pre></div>
 <p>You can then use the <code>ghcnd_stations</code> tibble as required to get geospatial metadata on the <code>GHCN-D</code> climate features.</p>
   </div>
 
@@ -115,7 +117,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

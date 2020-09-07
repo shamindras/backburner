@@ -965,7 +965,7 @@ CREATE TABLE {out_tbl_name} AS
        agg_data.fire_name,
        agg_data.fire_start_date::date AS fire_start_date,
        agg_data.area_burned_acres AS fire_acres_burned,
-       ln(agg_data.area_burned_acres) AS fire_acres_burned_log,
+       LN(agg_data.area_burned_acres::float) AS fire_acres_burned_log,
        agg_data.fire_longitude,
        agg_data.fire_latitude,
        agg_data.fire_perimeter,
