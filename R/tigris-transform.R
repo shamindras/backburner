@@ -1,3 +1,31 @@
+#' Calculates areas of tigris state, county, and military geometry (polygons)
+#' in units of square meters, square kilometers, square miles. It appends
+#' these columns onto the input tigris tibble
+#' (of either state, county, or military).
+#'
+#' @param tigris_tbl (sf) : Processed tigris \code{sf} \code{tibble} already
+#' projected to CRS 4326
+#'
+#' @return (tibble): The input tigris \code{sf} \code{tibble} with
+#' 3 additional columns area calculations appended to it.
+#' @export
+tigris_calc_areas <- function(tigris_tbl){
+    tigris_tbl_area <-
+        tigris_tbl %>%
+        dplyr::mutate(area_sq_meters = sf::st_area(geometry),
+                      area_sq_kilometers =
+                          units::set_units(x = area_sq_meters,
+                                           value = km^2),
+                      area_sq_miles = area_sq_kilometers*
+                          0.38610215854781257) %>%
+        # Remove the units attribute from converted columns
+        dplyr::mutate(dplyr::across(dplyr::contains("area_sq"),
+                                    as.numeric)) %>%
+        dplyr::relocate(dplyr::contains("area_sq"),
+                        .before = geometry)
+    base::return(tigris_tbl_area)
+}
+
 #' Transforms the TIGER/Line Files and Shapefiles for US States, US Counties,
 #' and US military lines for a given year, and resolution, in preparation
 #' for loading/modeling purposes
@@ -75,5 +103,9 @@ tigris_transform <- function(tig_res = '5m', tig_year = 2019, tig_cb = FALSE,
     # Obtain list of transformed shapefiles
     out_tig_nms <- c("tigris_states", "tigris_counties", "tigris_military")
     out_tig_sfs <- base::mget(out_tig_nms)
-    base::return(out_tig_sfs)
+    out_tig_sfs_area <-
+        out_tig_sfs %>%
+            purrr::map(.x = .,
+                       .f = ~backburner::tigris_calc_areas(tigris_tbl = .x))
+    base::return(out_tig_sfs_area)
 }

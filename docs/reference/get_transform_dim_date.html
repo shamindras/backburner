@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creates a Date Dimension table i.e. <code>dim_date</code>. This is useful to
+<title>Creates a Date Dimension table i.e. dim_date. This is useful to
 get date attributes for a sequence of dates as specified by the user. This
 table can be used for joining attributes by date for existing tables and
 also for subsetting tables by date where this is faster by joining rather
@@ -43,7 +43,7 @@ than by filtering. — get_transform_dim_date • backburner</title>
 
 
 
-<meta property="og:title" content="Creates a Date Dimension table i.e. <code>dim_date</code>. This is useful to
+<meta property="og:title" content="Creates a Date Dimension table i.e. dim_date. This is useful to
 get date attributes for a sequence of dates as specified by the user. This
 table can be used for joining attributes by date for existing tables and
 also for subsetting tables by date where this is faster by joining rather
@@ -156,8 +156,8 @@ than by filtering.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_transform_dim_date</span>(
-  <span class='kw'>all_dates_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>),
-  <span class='kw'>all_dates_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()
+  all_dates_start = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>),
+  all_dates_end = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -181,13 +181,14 @@ dimension table. The default value is <code><a href='https://rdrr.io/r/base/as.D
 for our purposes</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># Input start and end dates</span>
-<span class='no'>ALL_DATES_START</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>)
-<span class='no'>ALL_DATES_END</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2025-01-01"</span>)
-<span class='no'>out_dim_date</span> <span class='kw'>&lt;-</span> <span class='fu'>get_transform_dim_date</span>(<span class='kw'>all_dates_start</span> <span class='kw'>=</span> <span class='no'>ALL_DATES_START</span>,
-                                       <span class='kw'>all_dates_end</span> <span class='kw'>=</span> <span class='no'>ALL_DATES_END</span>)
-}</div></pre>
+<span class='kw'>ALL_DATES_START</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>)
+<span class='kw'>ALL_DATES_END</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2025-01-01"</span>)
+<span class='kw'>out_dim_date</span> <span class='op'>&lt;-</span> <span class='fu'>get_transform_dim_date</span>(all_dates_start = <span class='kw'>ALL_DATES_START</span>,
+                                       all_dates_end = <span class='kw'>ALL_DATES_END</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -203,7 +204,7 @@ for our purposes</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

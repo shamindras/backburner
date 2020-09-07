@@ -41,6 +41,8 @@ Imports:
     fs,
     glue,
     RSQLite,
-    lubridate
+    lubridate,
+    units,
+    pkgdown
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
