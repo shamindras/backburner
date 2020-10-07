@@ -145,7 +145,7 @@ and US military lines for a given year, and resolution, in preparation
 for transform purposes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tigris_extract</span>(tig_res = <span class='st'>"5m"</span>, tig_year = <span class='fl'>2019</span>, tig_cb = <span class='fl'>FALSE</span>, tig_crs = <span class='fl'>4326</span>)</pre>
+    <pre class="usage"><span class='fu'>tigris_extract</span><span class='op'>(</span>tig_res <span class='op'>=</span> <span class='st'>"5m"</span>, tig_year <span class='op'>=</span> <span class='fl'>2019</span>, tig_cb <span class='op'>=</span> <span class='cn'>FALSE</span>, tig_crs <span class='op'>=</span> <span class='fl'>4326</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,10 +180,10 @@ US States, US Counties, and US military lines for a given year, and
 resolution, with cleaned column names, ready for modeling transformations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>tigris_out</span> <span class='op'>&lt;-</span> <span class='fu'>tigris_extract</span>(tig_res = <span class='st'>'5m'</span>, tig_year = <span class='fl'>2019</span>,
-                            tig_cb = <span class='fl'>FALSE</span>, tig_crs = <span class='fl'>4326</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>tigris_out</span> <span class='op'>&lt;-</span> <span class='fu'>tigris_extract</span><span class='op'>(</span>tig_res <span class='op'>=</span> <span class='st'>'5m'</span>, tig_year <span class='op'>=</span> <span class='fl'>2019</span>,
+                            tig_cb <span class='op'>=</span> <span class='cn'>FALSE</span>, tig_crs <span class='op'>=</span> <span class='fl'>4326</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -200,7 +200,7 @@ resolution, with cleaned column names, ready for modeling transformations.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
