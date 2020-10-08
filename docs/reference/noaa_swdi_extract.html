@@ -145,17 +145,17 @@ This function will setup global variables, gather information and urls on
 data and metadata and download the data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>noaa_swdi_extract</span>(
-  year_periods = <span class='fl'>1995</span><span class='op'>:</span><span class='fl'>1995</span>,
-  <span class='kw'>noaa_swdi_ind_tiles</span>,
-  <span class='kw'>noaa_swdi_type</span>,
-  data_folder = <span class='st'>"data"</span>,
-  dat_flag = <span class='st'>"noaa_swdi"</span>,
-  remove = <span class='fl'>FALSE</span>,
-  data_dl_method = <span class='st'>"libcurl"</span>,
-  url = <span class='kw'>NULL</span>,
-  metadata_dirname = <span class='st'>"metadata"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>noaa_swdi_extract</span><span class='op'>(</span>
+  year_periods <span class='op'>=</span> <span class='fl'>1995</span><span class='op'>:</span><span class='fl'>1995</span>,
+  <span class='va'>noaa_swdi_ind_tiles</span>,
+  <span class='va'>noaa_swdi_type</span>,
+  data_folder <span class='op'>=</span> <span class='st'>"data"</span>,
+  dat_flag <span class='op'>=</span> <span class='st'>"noaa_swdi"</span>,
+  remove <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  data_dl_method <span class='op'>=</span> <span class='st'>"libcurl"</span>,
+  url <span class='op'>=</span> <span class='cn'>NULL</span>,
+  metadata_dirname <span class='op'>=</span> <span class='st'>"metadata"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,11 +209,11 @@ folder name</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>noaa_swdi_extract</span>(year_periods = <span class='fl'>1995</span><span class='op'>:</span><span class='fl'>1996</span>,
-                  noaa_swdi_ind_tiles = <span class='fl'>1</span>,
-                  noaa_swdi_type = <span class='st'>"hail"</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>noaa_swdi_extract</span><span class='op'>(</span>year_periods <span class='op'>=</span> <span class='fl'>1995</span><span class='op'>:</span><span class='fl'>1996</span>,
+                  noaa_swdi_ind_tiles <span class='op'>=</span> <span class='fl'>1</span>,
+                  noaa_swdi_type <span class='op'>=</span> <span class='st'>"hail"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -230,7 +230,7 @@ folder name</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

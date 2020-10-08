@@ -135,13 +135,13 @@
     <p>Format Specific MTBS Shapefile</p>
     </div>
 
-    <pre class="usage"><span class='fu'>format_transform_mtbs</span>(
-  <span class='kw'>dl_date</span>,
-  <span class='kw'>mtbs_type</span>,
-  <span class='kw'>orig_colnames</span>,
-  <span class='kw'>tform_colnames</span>,
-  ds_source = <span class='st'>"mtbs"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>format_transform_mtbs</span><span class='op'>(</span>
+  <span class='va'>dl_date</span>,
+  <span class='va'>mtbs_type</span>,
+  <span class='va'>orig_colnames</span>,
+  <span class='va'>tform_colnames</span>,
+  ds_source <span class='op'>=</span> <span class='st'>"mtbs"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,14 +176,14 @@ to import and takes 2 values <code>mtbs_perimeter_data, mtbs_fod_pts_data</code>
     <p>A sf data frame containing the shapefile contents</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>list_colnames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mtbs_transform_col_names.html'>mtbs_transform_col_names</a></span>(mtbs_type = <span class='st'>"mtbs_perimeter_data"</span>)
-<span class='fu'>format_transform_mtbs</span>(ds_source = <span class='st'>"mtbs"</span>,
-                    dl_date = <span class='kw'>base</span>::<span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2019-07-06"</span>),
-                    mtbs_type = <span class='st'>"mtbs_perimeter_data"</span>,
-                    orig_colnames = <span class='kw'>list_colnames</span><span class='op'>$</span><span class='kw'>ORIG_COLNAMES</span>,
-                    tform_colnames = <span class='kw'>list_colnames</span><span class='op'>$</span><span class='kw'>TFORM_COLNAMES</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>list_colnames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mtbs_transform_col_names.html'>mtbs_transform_col_names</a></span><span class='op'>(</span>mtbs_type <span class='op'>=</span> <span class='st'>"mtbs_perimeter_data"</span><span class='op'>)</span>
+<span class='fu'>format_transform_mtbs</span><span class='op'>(</span>ds_source <span class='op'>=</span> <span class='st'>"mtbs"</span>,
+                    dl_date <span class='op'>=</span> <span class='fu'>base</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2019-07-06"</span><span class='op'>)</span>,
+                    mtbs_type <span class='op'>=</span> <span class='st'>"mtbs_perimeter_data"</span>,
+                    orig_colnames <span class='op'>=</span> <span class='va'>list_colnames</span><span class='op'>$</span><span class='va'>ORIG_COLNAMES</span>,
+                    tform_colnames <span class='op'>=</span> <span class='va'>list_colnames</span><span class='op'>$</span><span class='va'>TFORM_COLNAMES</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -200,7 +200,7 @@ to import and takes 2 values <code>mtbs_perimeter_data, mtbs_fod_pts_data</code>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

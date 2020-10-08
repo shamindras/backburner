@@ -155,10 +155,10 @@ also for subsetting tables by date where this is faster by joining rather
 than by filtering.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_transform_dim_date</span>(
-  all_dates_start = <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>),
-  all_dates_end = <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span>()
-)</pre>
+    <pre class="usage"><span class='fu'>get_transform_dim_date</span><span class='op'>(</span>
+  all_dates_start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1981-01-01"</span><span class='op'>)</span>,
+  all_dates_end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,13 +181,13 @@ dimension table. The default value is <code><a href='https://rdrr.io/r/base/as.D
 for our purposes</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Input start and end dates</span>
-<span class='kw'>ALL_DATES_START</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"1981-01-01"</span>)
-<span class='kw'>ALL_DATES_END</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2025-01-01"</span>)
-<span class='kw'>out_dim_date</span> <span class='op'>&lt;-</span> <span class='fu'>get_transform_dim_date</span>(all_dates_start = <span class='kw'>ALL_DATES_START</span>,
-                                       all_dates_end = <span class='kw'>ALL_DATES_END</span>)
-}
+<span class='va'>ALL_DATES_START</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1981-01-01"</span><span class='op'>)</span>
+<span class='va'>ALL_DATES_END</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2025-01-01"</span><span class='op'>)</span>
+<span class='va'>out_dim_date</span> <span class='op'>&lt;-</span> <span class='fu'>get_transform_dim_date</span><span class='op'>(</span>all_dates_start <span class='op'>=</span> <span class='va'>ALL_DATES_START</span>,
+                                       all_dates_end <span class='op'>=</span> <span class='va'>ALL_DATES_END</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -204,7 +204,7 @@ for our purposes</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

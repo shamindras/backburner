@@ -1,6 +1,8 @@
-pandoc: 2.2.3.2
-pkgdown: 1.6.0
+pandoc: '2.10'
+pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: []
-last_built: 2020-09-07T19:18Z
+articles:
+  extract-ghcnd-stations-metadata: extract-ghcnd-stations-metadata.html
+  setup-backburner: setup-backburner.html
+last_built: 2020-10-08T01:26Z
 
