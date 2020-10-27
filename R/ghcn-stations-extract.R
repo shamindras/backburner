@@ -26,7 +26,7 @@ noaa_ghcn_stations_extract <- function(){
     # Do renaming of columns for ghcn state table
     ghcnd_states    <- ghcnd_states %>%
                             dplyr::rename(state_code = code,
-                                      state_name = name)
+                                          state_name = name)
 
     # Return output as a list of tibbles
     out_ghcnd       <- list("ghcnd_stations" = ghcnd_stations,

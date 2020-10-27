@@ -127,13 +127,8 @@ CREATE TABLE {out_tbl_name} AS
     {summary_type}(ghobs.{glue::double_quote(sfeat)}) FILTER (WHERE ghobs.record_dt BETWEEN fbase.fire_start_date::date - integer '180'
                                                       AND fbase.fire_start_date::date - integer '1') AS {glue::double_quote(
                                                       glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 's{spat_deg_rad_str_nums}', 't6m', .sep = '_'))}
-FROM (SELECT fb.fire_id,
-             fb.fire_start_date,
-             fb.fire_centroid
-      FROM {fire_base_tbl_name} AS fb
-      WHERE fb.fire_start_date::date >= {glue::single_quote(
-      format(fire_base_start_date, '%d-%m-%Y'))}::date) AS fbase
-LEFT JOIN ghcnd_observations AS ghobs
+FROM {fire_base_tbl_name} AS fbase
+LEFT JOIN ghcnd_observations_{sfeat_lowcase} AS ghobs
     ON (ghobs.record_dt BETWEEN (fbase.fire_start_date::date - integer {glue::single_quote(max_lag_fire_base_days)})
                            AND (fbase.fire_start_date::date - integer '1')
         AND ST_DWithin(fbase.fire_centroid, ghobs.location, {spat_deg_rad}))

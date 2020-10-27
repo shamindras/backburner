@@ -31,7 +31,7 @@ get_ghcn_stations_us_unq <- function(conn){
     ghcn_stations_us_unq_df <- ghcn_stations_us %>%
                                     dplyr::arrange(id, elevation) %>%
                                     dplyr::group_by(id) %>%
-                                    dplyr::mutate(rownum = row_number()) %>%
+                                    dplyr::mutate(rownum = dplyr::row_number()) %>%
                                     dplyr::filter(rownum == min(rownum)) %>%
                                     dplyr::select(-rownum) %>%
                                     dplyr::ungroup()

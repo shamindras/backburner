@@ -165,13 +165,13 @@ noaa_stormevents_data_download <- function(noaa_all, year_periods = 1800:1800,
     # https://github.com/libarchive/libarchive/issues/586
 
     noaa_all %T>%
-        readr::write_csv(x = ., path = outpath_mtda_all, col_names = TRUE) %>%
+        readr::write_csv(x = ., file = outpath_mtda_all, col_names = TRUE) %>%
         dplyr::filter(year_data %in% year_periods) %>%
         dplyr::select(furl, outpath, ind_zip, outdir) %>%
         dplyr::mutate(extr = base::as.logical(ind_zip),
                       remove = base::as.logical(remove)) %>%
         dplyr::select(-ind_zip) %T>%
-        readr::write_csv(x = ., path = outpath_mtda, col_names = TRUE) %>%
+        readr::write_csv(x = ., file = outpath_mtda, col_names = TRUE) %>%
         purrr::pwalk(dl_extract_file)
 }
 

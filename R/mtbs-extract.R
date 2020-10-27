@@ -92,13 +92,13 @@ mtbs_data_download <- function(mtbs_all, data_folder = 'data', remove = FALSE){
     fs::dir_create(path = outdir_mtda)
 
     mtbs_all %T>%
-        readr::write_csv(x = ., path = outpath_mtda_all, col_names = TRUE) %>%
+        readr::write_csv(x = ., file = outpath_mtda_all, col_names = TRUE) %>%
         dplyr::filter(!ind_mtda) %>%
         dplyr::select(furl, outpath, ind_zip, outdir) %>%
         dplyr::mutate(extr = base::as.logical(ind_zip),
                       remove = base::as.logical(remove)) %>%
         dplyr::select(-ind_zip) %T>%
-        readr::write_csv(x = ., path = outpath_mtda, col_names = TRUE) %>%
+        readr::write_csv(x = ., file = outpath_mtda, col_names = TRUE) %>%
         purrr::pwalk(backburner::dl_extract_file)
 }
 
