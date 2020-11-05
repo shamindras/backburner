@@ -390,12 +390,9 @@ CREATE TABLE {out_tbl_name} AS
     {summary_type}({sfeat}.tot_count) FILTER (WHERE {sfeat}.record_dt BETWEEN fbase.fire_start_date::date - integer '180'
                                                       AND fbase.fire_start_date::date - integer '1') AS {glue::double_quote(
                                                       glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't6m', .sep = '_'))}
-FROM (SELECT fb.fire_id,
-             fb.fire_start_date,
-             fb.fire_centroid
-      FROM {fire_base_tbl_name} AS fb
-      WHERE fb.fire_start_date::date >= {glue::single_quote(
-      format(fire_base_start_date, '%d-%m-%Y'))}::date) AS fbase
+FROM {fire_base_tbl_name} AS fbase
+WHERE fbase.fire_start_date::date >= {glue::single_quote(
+      format(fire_base_start_date, '%d-%m-%Y'))}::date
 LEFT JOIN noaa_swdi_{sfeat} AS {sfeat}
     ON ({sfeat}.record_dt BETWEEN (fbase.fire_start_date::date - integer {glue::single_quote(max_lag_fire_base_days)})
                            AND (fbase.fire_start_date::date - integer '1')
@@ -631,34 +628,42 @@ DROP TABLE IF EXISTS {out_tbl_name};
 
 CREATE TABLE {out_tbl_name} AS
 
-(SELECT fbase.fire_id AS fire_id,
-        fbase.fire_name AS fire_name,
-      	fbase.fire_start_date::date AS fire_start_date,
-      	fbase.fire_acres_burned AS area_burned_acres,
-      	ST_X(fbase.fire_centroid)::float AS fire_longitude,
-      	ST_Y(fbase.fire_centroid)::float AS fire_latitude,
-        fbase.fire_perimeter AS fire_perimeter,
-        fbase.fire_type AS mtbs_fire_type,
-        fbase.fire_asmnt_type AS mtbs_fire_asmnt_type,
-        fbase.fire_start_season AS fire_start_season,
-        CASE
-            WHEN fbase.fire_start_season = 'Fall' THEN 0
-            WHEN fbase.fire_start_season = 'Spring' THEN 1
-            WHEN fbase.fire_start_season = 'Summer' THEN 2
-            WHEN fbase.fire_start_season = 'Winter' THEN 3
-            ELSE NULL
-        END AS fire_start_season_numeric,
-        fbase.start_day AS fire_start_day,
-        fbase.start_month AS fire_start_month,
-        fbase.start_year AS fire_start_year,
+(SELECT fbase.fire_id,
+        fbase.fire_name,
+        fbase.geomac_uniq_fire,
+        fbase.geomac_incd_name,
+        fbase.fire_start_date_day_name,
+        fbase.fire_start_date,
+        fbase.fire_start_day,
+        fbase.fire_start_month,
+        fbase.fire_start_year,
         fbase.state_name,
         fbase.state_code,
+        fbase.county_name,
+        fbase.county_code,
+        fbase.fire_start_season,
+        fbase.fire_start_season_numeric,
+        fbase.fire_end_season,
+        fbase.fire_end_season_numeric,
+        fbase.fire_area_acres_burned,
+        fbase.fire_acres_burned_log,
+        fbase.fire_area_sq_meters_burned,
+        fbase.fire_area_sq_kilometers_burned,
+        fbase.fire_area_sq_miles_burned,
+        fbase.fire_duration_days,
+        fbase.fire_perimeter,
+        fbase.fire_centroid,
+        fbase.fire_centroid_longitude,
+        fbase.fire_centroid_latitude,
+        fbase.fire_end_centroid,
         fbase.grid_name,
         fbase.grid_code,
         fbase.grid_area_sq_meters,
         fbase.grid_area_sq_kilometers,
         fbase.grid_area_sq_miles,
         fbase.grid_cell_type,
+        fbase.mtbs_fire_type,
+        fbase.mtbs_fire_asmnt_type,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w,
       	prcp.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w,
@@ -722,11 +727,34 @@ CREATE TABLE {out_tbl_name} AS
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m,
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
       	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
-      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
-FROM (SELECT fb.*
-      FROM {fire_base_tbl_name} fb
-      WHERE fb.fire_start_date::date >= {glue::single_quote(
-      format(fire_base_start_date, '%d-%m-%Y'))}::date) AS fbase
+      	nldn.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3d,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1w,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2w,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3w,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1m,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2m,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3m,
+      	hail.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t6m,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3d,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1w,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2w,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3w,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1m,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2m,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3m,
+      	tvs.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t6m,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3d AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3d,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1w AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1w,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2w AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2w,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3w AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3w,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1m,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2m,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m,
+      	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m
+FROM {fire_base_tbl_name} AS fbase
+WHERE fbase.fire_start_date::date >= {glue::single_quote(
+      format(fire_base_start_date, '%d-%m-%Y'))}::date
 LEFT JOIN {out_tbl_name_pfx}_ghcnd_prcp_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS prcp
 	ON fbase.fire_id = prcp.fire_id
 LEFT JOIN {out_tbl_name_pfx}_ghcnd_snow_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS snow
@@ -743,6 +771,12 @@ LEFT JOIN {out_tbl_name_pfx}_ghcnd_tobs_{summary_type_lowcase}_s{spat_deg_rad_st
 	ON fbase.fire_id = tobs.fire_id
 LEFT JOIN {out_tbl_name_pfx}_nldn_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS nldn
 	ON fbase.fire_id = nldn.fire_id
+LEFT JOIN {out_tbl_name_pfx}_hail_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS hail
+	ON fbase.fire_id = hail.fire_id
+LEFT JOIN {out_tbl_name_pfx}_tvs_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS tvs
+	ON fbase.fire_id = tvs.fire_id
+LEFT JOIN {out_tbl_name_pfx}_structure_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS structure
+	ON fbase.fire_id = structure.fire_id
 );
 
 /* Index this table on fire_id for the final LEFT JOIN of all features*/
@@ -965,28 +999,41 @@ DROP TABLE IF EXISTS {out_tbl_name};
 CREATE TABLE {out_tbl_name} AS
 
 (SELECT agg_data.fire_id,
-       agg_data.fire_name,
-       agg_data.fire_start_date::date AS fire_start_date,
-       agg_data.area_burned_acres AS fire_acres_burned,
-       LN(agg_data.area_burned_acres::float) AS fire_acres_burned_log,
-       agg_data.fire_longitude,
-       agg_data.fire_latitude,
-       agg_data.fire_perimeter,
-       agg_data.mtbs_fire_type,
-       agg_data.mtbs_fire_asmnt_type,
-       agg_data.fire_start_season,
-       agg_data.fire_start_season_numeric,
-       agg_data.fire_start_day,
-       agg_data.fire_start_month,
-       agg_data.fire_start_year,
-       agg_data.state_name,
-       agg_data.state_code,
-       agg_data.grid_name,
-       agg_data.grid_code,
-       agg_data.grid_area_sq_meters,
-       agg_data.grid_area_sq_kilometers,
-       agg_data.grid_area_sq_miles,
-       agg_data.grid_cell_type,
+        agg_data.fire_name,
+        agg_data.geomac_uniq_fire,
+        agg_data.geomac_incd_name,
+        agg_data.fire_start_date_day_name,
+        agg_data.fire_start_date,
+        agg_data.fire_start_day,
+        agg_data.fire_start_month,
+        agg_data.fire_start_year,
+        agg_data.state_name,
+        agg_data.state_code,
+        agg_data.county_name,
+        agg_data.county_code,
+        agg_data.fire_start_season,
+        agg_data.fire_start_season_numeric,
+        agg_data.fire_end_season,
+        agg_data.fire_end_season_numeric,
+        agg_data.fire_area_acres_burned,
+        agg_data.fire_acres_burned_log,
+        agg_data.fire_area_sq_meters_burned,
+        agg_data.fire_area_sq_kilometers_burned,
+        agg_data.fire_area_sq_miles_burned,
+        agg_data.fire_duration_days,
+        agg_data.fire_perimeter,
+        agg_data.fire_centroid,
+        agg_data.fire_centroid_longitude,
+        agg_data.fire_centroid_latitude,
+        agg_data.fire_end_centroid,
+        agg_data.grid_name,
+        agg_data.grid_code,
+        agg_data.grid_area_sq_meters,
+        agg_data.grid_area_sq_kilometers,
+        agg_data.grid_area_sq_miles,
+        agg_data.grid_cell_type,
+        agg_data.mtbs_fire_type,
+        agg_data.mtbs_fire_asmnt_type,
        COALESCE(agg_data.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d, 0) AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t3d,
        COALESCE(agg_data.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w, 0) AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t1w,
        COALESCE(agg_data.{summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w, 0) AS {summary_type_lowcase}_prcp_s{spat_deg_rad_str_nums}_t2w,
@@ -1042,7 +1089,31 @@ CREATE TABLE {out_tbl_name} AS
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t1m,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t2m,
        COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t3m,
-       COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m
+       COALESCE(agg_data.{summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_nldn_count_s{spat_deg_rad_str_nums}_t6m,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3d, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3d,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1w, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1w,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2w, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2w,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3w, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3w,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1m, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t1m,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t2m,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t3m,
+       COALESCE(agg_data.{summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_hail_count_s{spat_deg_rad_str_nums}_t6m,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3d, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3d,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1w, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1w,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2w, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2w,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3w, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3w,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1m, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t1m,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t2m,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t3m,
+       COALESCE(agg_data.{summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_tvs_count_s{spat_deg_rad_str_nums}_t6m,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3d, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3d,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1w, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1w,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2w, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2w,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3w, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3w,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1m, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t1m,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2m, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t2m,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m,
+       COALESCE(agg_data.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m, 0) AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m
 FROM {fire_base_tbl_name}_full_feat_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS agg_data
 );
 
