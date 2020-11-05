@@ -391,12 +391,12 @@ CREATE TABLE {out_tbl_name} AS
                                                       AND fbase.fire_start_date::date - integer '1') AS {glue::double_quote(
                                                       glue::glue({summary_type_lowcase}, {sfeat_lowcase}, 'count', 's{spat_deg_rad_str_nums}', 't6m', .sep = '_'))}
 FROM {fire_base_tbl_name} AS fbase
-WHERE fbase.fire_start_date::date >= {glue::single_quote(
-      format(fire_base_start_date, '%d-%m-%Y'))}::date
 LEFT JOIN noaa_swdi_{sfeat} AS {sfeat}
     ON ({sfeat}.record_dt BETWEEN (fbase.fire_start_date::date - integer {glue::single_quote(max_lag_fire_base_days)})
                            AND (fbase.fire_start_date::date - integer '1')
         AND ST_DWithin(fbase.fire_centroid, {sfeat}.geometry, {spat_deg_rad}))
+WHERE fbase.fire_start_date::date >= {glue::single_quote(
+      format(fire_base_start_date, '%d-%m-%Y'))}::date
 GROUP BY fbase.fire_id);
 
 /* Index this table on fire_id for the final LEFT JOIN of all features*/
@@ -753,8 +753,6 @@ CREATE TABLE {out_tbl_name} AS
       	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t3m,
       	structure.{summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m AS {summary_type_lowcase}_structure_count_s{spat_deg_rad_str_nums}_t6m
 FROM {fire_base_tbl_name} AS fbase
-WHERE fbase.fire_start_date::date >= {glue::single_quote(
-      format(fire_base_start_date, '%d-%m-%Y'))}::date
 LEFT JOIN {out_tbl_name_pfx}_ghcnd_prcp_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS prcp
 	ON fbase.fire_id = prcp.fire_id
 LEFT JOIN {out_tbl_name_pfx}_ghcnd_snow_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS snow
@@ -777,6 +775,8 @@ LEFT JOIN {out_tbl_name_pfx}_tvs_{summary_type_lowcase}_s{spat_deg_rad_str_nums}
 	ON fbase.fire_id = tvs.fire_id
 LEFT JOIN {out_tbl_name_pfx}_structure_{summary_type_lowcase}_s{spat_deg_rad_str_nums}_t{max_lag_fire_base_days} AS structure
 	ON fbase.fire_id = structure.fire_id
+WHERE fbase.fire_start_date::date >= {glue::single_quote(
+      format(fire_base_start_date, '%d-%m-%Y'))}::date
 );
 
 /* Index this table on fire_id for the final LEFT JOIN of all features*/
