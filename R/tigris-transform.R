@@ -16,12 +16,14 @@ tigris_calc_areas <- function(tigris_tbl){
                       area_sq_kilometers =
                           units::set_units(x = area_sq_meters,
                                            value = km^2),
-                      area_sq_miles = area_sq_kilometers*
-                          0.38610215854781257) %>%
+                      area_sq_miles = area_sq_kilometers * 0.38610215854781257,
+                      area_acres = area_sq_kilometers * 247.10538147) %>%
         # Remove the units attribute from converted columns
         dplyr::mutate(dplyr::across(dplyr::contains("area_sq"),
-                                    as.numeric)) %>%
+                                    as.numeric),
+                      area_acres = as.numeric(x = area_acres)) %>%
         dplyr::relocate(dplyr::contains("area_sq"),
+                        area_acres,
                         .before = geometry)
     base::return(tigris_tbl_area)
 }
