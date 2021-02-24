@@ -68,12 +68,14 @@ tigris_transform <- function(tig_res = '5m', tig_year = 2019, tig_cb = FALSE,
                                           statens  = as.numeric(statens),
                                           intptlon = as.numeric(intptlon),
                                           intptlat = as.numeric(intptlat)) %>%
+                            tibble::as_tibble(x = .) %>%
                             dplyr::rowwise(data = .) %>%
                             dplyr::mutate(intpt = sf::st_sfc(sf::st_point(
                                 cbind(intptlon, intptlat)),
                                 crs = tig_crs)) %>%
                             dplyr::ungroup(x = .) %>%
-                            sf::st_as_sf(x = .)
+                            sf::st_as_sf(x = .) %>%
+                            sf::st_transform(x = ., crs = tig_crs)
 
     tigris_counties  <- tigris_ext$tigris_counties %>%
                             dplyr::mutate(geoid   = as.numeric(geoid),
@@ -81,26 +83,30 @@ tigris_transform <- function(tig_res = '5m', tig_year = 2019, tig_cb = FALSE,
                                           awater   = as.numeric(awater),
                                           intptlon = as.numeric(intptlon),
                                           intptlat = as.numeric(intptlat)) %>%
+                            tibble::as_tibble(x = .) %>%
                             dplyr::rowwise(data = .) %>%
                             dplyr::mutate(intpt =
                                               sf::st_sfc(sf::st_point(
                                                   cbind(intptlon, intptlat)),
                                                   crs = tig_crs)) %>%
                             dplyr::ungroup(x = .) %>%
-                            sf::st_as_sf(x = .)
+                            sf::st_as_sf(x = .) %>%
+                            sf::st_transform(x = ., crs = tig_crs)
 
     tigris_military  <- tigris_ext$tigris_military %>%
                             dplyr::mutate(aland    = as.numeric(aland),
                                           awater   = as.numeric(awater),
                                           intptlon = as.numeric(intptlon),
                                           intptlat = as.numeric(intptlat)) %>%
+                            tibble::as_tibble(x = .) %>%
                             dplyr::rowwise(data = .) %>%
                             dplyr::mutate(intpt =
                                               sf::st_sfc(sf::st_point(
                                                   cbind(intptlon, intptlat)),
                                                   crs = tig_crs)) %>%
                             dplyr::ungroup(x = .) %>%
-                            sf::st_as_sf(x = .)
+                            sf::st_as_sf(x = .) %>%
+                            sf::st_transform(x = ., crs = tig_crs)
 
     # Obtain list of transformed shapefiles
     out_tig_nms <- c("tigris_states", "tigris_counties", "tigris_military")
